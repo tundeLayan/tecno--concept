@@ -1,20 +1,20 @@
-import React, { ChangeEventHandler, useRef } from 'react';
-import { InsertPhotoTwoTone } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { addImg } from '../Canvas';
+import React, { ChangeEventHandler, useRef } from "react";
+import { InsertPhotoTwoTone } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { addImg } from "../Canvas";
 
 export default function ImageUploadButton() {
   const dispatch = useDispatch();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const onFileChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    console.log("clicked");
     const reader = new FileReader();
     reader.onload = (event) => {
       const imgObj = new Image();
-
       imgObj.src = event.target?.result as string;
-
+      imgObj.style.objectFit = "cover";
       imgObj.onload = () => {
         dispatch(addImg(imgObj));
       };
@@ -28,10 +28,14 @@ export default function ImageUploadButton() {
 
   return (
     <>
-      <IconButton color="primary" onClick={fileInputRef.current?.click}>
+      <IconButton color="primary" onClick={() => fileInputRef.current?.click()}>
         <InsertPhotoTwoTone width="100%" />
-        <input onChange={onFileChange} style={{ display: 'none' }} ref={fileInputRef} type="file" />
-
+        <input
+          onChange={onFileChange}
+          style={{ display: "none" }}
+          ref={fileInputRef}
+          type="file"
+        />
       </IconButton>
     </>
   );

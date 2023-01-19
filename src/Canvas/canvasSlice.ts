@@ -1,35 +1,35 @@
-import { v4 as uuidv4 } from 'uuid';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fabric } from 'fabric';
+import { v4 as uuidv4 } from "uuid";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { fabric } from "fabric";
 
 export type CanvasState = {
-  canvasId: string
+  canvasId: string;
   elements: {
     [x: string]: {
-      type: 'text' | 'image',
-      id: string
-    }
-  }
-  elemIndexes: number[]
-  canvasObjects: fabric.Object[]
+      type: "text" | "image";
+      id: string;
+    };
+  };
+  elemIndexes: number[];
+  canvasObjects: fabric.Object[];
 };
 
 export const getCanvas = (id: string): { fabric: fabric.Canvas } => {
   const elem = document.getElementById(id) as unknown as {
-    fabric: fabric.Canvas
+    fabric: fabric.Canvas;
   };
 
   return elem;
 };
 const initialState: CanvasState = {
-  canvasId: '',
+  canvasId: "",
   elements: {},
   elemIndexes: [],
   canvasObjects: [],
 };
 
 const canvasSlice = createSlice({
-  name: 'canvas',
+  name: "canvas",
   initialState,
   reducers: {
     init: (state, action: PayloadAction<string>) => {
@@ -40,23 +40,59 @@ const canvasSlice = createSlice({
       canvas.clear();
       canvas.requestRenderAll();
     },
-    addText: (state) => {
+    addText: (state, { payload }) => {
+      // TODO: handle color, fontSize, bold, Italize, underline
       const { fabric: canvas } = getCanvas(state.canvasId);
-
+      // console.log("payload", payload);
       const id = uuidv4();
-      const textbox = new fabric.Textbox('New text', {
+      const textbox = new fabric.Textbox("New text", {
+        left: 50,
+        top: 50,
+        width: 200,
+        fontSize: payload.selectedFontSize,
+        fill: payload.selectedColor,
+        name: id,
+        underline: payload.isUnderlined,
+        fontWeight: payload.isBold ? "bold" : "normal",
+        fontStyle: payload.isItalized ? "italic" : "normal",
+        textAlign: payload.textAlign,
+      });
+
+      canvas.centerObject(textbox);
+      canvas.add(textbox);
+      canvas.requestRenderAll();
+      state.canvasObjects = canvas
+        .getObjects()
+        .map((i) => i.toObject(["name", "type"]));
+    },
+    addTextWithFont: (state) => {
+      const { fabric: canvas } = getCanvas(state.canvasId);
+      let fonts = [
+        "Pacifico",
+        "Aero",
+        "Arial",
+        "Futura",
+        "Garamond",
+        "Montserrat",
+        "Silka",
+        "Times New Roman",
+      ];
+      const id = uuidv4();
+      const textbox = new fabric.Textbox("New text", {
         left: 50,
         top: 50,
         width: 200,
         fontSize: 28,
-        fill: 'black',
+        fill: "black",
         name: id,
       });
 
       canvas.centerObject(textbox);
       canvas.add(textbox);
       canvas.requestRenderAll();
-      state.canvasObjects = canvas.getObjects().map((i) => i.toObject(['name', 'type']));
+      state.canvasObjects = canvas
+        .getObjects()
+        .map((i) => i.toObject(["name", "type"]));
     },
     addImgURL: (state, action: PayloadAction<string>) => {
       const elem = getCanvas(state.canvasId);
@@ -69,32 +105,38 @@ const canvasSlice = createSlice({
         //   name: id,
         // };
 
-        fabric.Image.fromURL(action.payload, (image) => {
-          // @ts-ignore
-          if (canvas?.width < image.width) {
+        fabric.Image.fromURL(
+          action.payload,
+          (image) => {
             // @ts-ignore
-            const ratio = canvas.width / image.width;
-            // @ts-ignore
-            image.scaleToWidth(canvas.width);
-            // @ts-ignore
-            image.scaleToHeight(image.height * ratio);
-            // @ts-ignore
-          } else if (canvas.height < imgElem.naturalHeight) {
-            // @ts-ignore
-            const ratio = canvas.height / image.height;
-            // @ts-ignore
-            image.scaleToHeight(canvas.height);
-            // @ts-ignore
-            image.scaleToWidth(image.width * ratio);
+            if (canvas?.width < image.width) {
+              // @ts-ignore
+              const ratio = canvas.width / image.width;
+              // @ts-ignore
+              image.scaleToWidth(canvas.width);
+              // @ts-ignore
+              image.scaleToHeight(image.height * ratio);
+              // @ts-ignore
+            } else if (canvas.height < imgElem.naturalHeight) {
+              // @ts-ignore
+              const ratio = canvas.height / image.height;
+              // @ts-ignore
+              image.scaleToHeight(canvas.height);
+              // @ts-ignore
+              image.scaleToWidth(image.width * ratio);
+            }
+            canvas.centerObject(image);
+            canvas.add(image);
+            canvas.requestRenderAll();
+          },
+          {
+            crossOrigin: "anonymous",
           }
-          canvas.centerObject(image);
-          canvas.add(image);
-          canvas.requestRenderAll();
-        }, {
-          crossOrigin: 'anonymous',
-        });
+        );
 
-        state.canvasObjects = canvas.getObjects().map((i) => i.toObject(['name', 'type']));
+        state.canvasObjects = canvas
+          .getObjects()
+          .map((i) => i.toObject(["name", "type"]));
       }
     },
     addImg: (state, action: PayloadAction<HTMLImageElement>) => {
@@ -107,25 +149,27 @@ const canvasSlice = createSlice({
         const options: fabric.IImageOptions = {
           name: id,
         };
-        // @ts-ignore
-        if (canvas?.width < imgElem.naturalWidth) {
-          // @ts-ignore
-          const ratio = canvas.width / imgElem.naturalWidth;
-          options.width = canvas.width;
-          options.height = imgElem.naturalHeight * ratio;
-          // @ts-ignore
-        } else if (canvas.height < imgElem.naturalHeight) {
-          // @ts-ignore
-          const ratio = canvas.height / imgElem.naturalHeight;
-          options.height = canvas.height;
-          options.width = imgElem.naturalWidth * ratio;
-        }
+        // // @ts-ignore
+        // if (canvas?.width < imgElem.naturalWidth) {
+        //   // @ts-ignore
+        //   const ratio = canvas.width / imgElem.naturalWidth;
+        //   options.width = canvas.width;
+        //   options.height = imgElem.naturalHeight * ratio;
+        //   // @ts-ignore
+        // } else if (canvas.height < imgElem.naturalHeight) {
+        //   // @ts-ignore
+        //   const ratio = canvas.height / imgElem.naturalHeight;
+        //   options.height = canvas.height;
+        //   options.width = imgElem.naturalWidth * ratio;
+        // }
         const image = new fabric.Image(action.payload, options);
 
         canvas.centerObject(image);
         canvas.add(image);
         canvas.requestRenderAll();
-        state.canvasObjects = canvas.getObjects().map((i) => i.toObject(['name', 'type']));
+        state.canvasObjects = canvas
+          .getObjects()
+          .map((i) => i.toObject(["name", "type"]));
       }
     },
     deleteItem: (state, { payload: id }: PayloadAction<string>) => {
@@ -134,7 +178,9 @@ const canvasSlice = createSlice({
       if (item) {
         canvas.remove(item);
         canvas.requestRenderAll();
-        state.canvasObjects = canvas.getObjects().map((i) => i.toObject(['name', 'type']));
+        state.canvasObjects = canvas
+          .getObjects()
+          .map((i) => i.toObject(["name", "type"]));
       }
     },
     deleteSelectedLayer: (state) => {
@@ -143,10 +189,13 @@ const canvasSlice = createSlice({
       if (item) {
         canvas.remove(item);
         canvas.requestRenderAll();
-        state.canvasObjects = canvas.getObjects().map((i) => i.toObject(['name', 'type']));
+        state.canvasObjects = canvas
+          .getObjects()
+          .map((i) => i.toObject(["name", "type"]));
       }
     },
     selectLayer: (state, { payload: id }: PayloadAction<string>) => {
+      // console.log("layer selected");
       const { fabric: canvas } = getCanvas(state.canvasId);
       const item = canvas.getObjects().find((obj) => obj.name === id);
       if (item) {
@@ -154,10 +203,49 @@ const canvasSlice = createSlice({
         canvas.requestRenderAll();
       }
     },
+    changeTextColor: (state, { payload }: PayloadAction<string>) => {
+      const { fabric: canvas } = getCanvas(state.canvasId);
+      canvas.getActiveObject()?.set("fill", payload);
+      canvas.requestRenderAll();
+    },
+    textAlign: (state, { payload }: PayloadAction<string>) => {
+      const { fabric: canvas } = getCanvas(state.canvasId);
+      // canvas.getActiveObject()?.set("textAlign", "left");
+    },
+    setFontSize: (state, { payload }) => {
+      const { fabric: canvas } = getCanvas(state.canvasId);
+      canvas.getActiveObject()?.set("");
+      canvas.requestRenderAll();
+    },
+    setFontFamily: (state, { payload }) => {
+      const { fabric: canvas } = getCanvas(state.canvasId);
+      canvas.getActiveObject()?.set("fontFamily");
+    },
+    setToBold: () => {},
+    setToItalic: () => {},
+    underlineText: (state) => {
+      const { fabric: canvas } = getCanvas(state.canvasId);
+      if (!canvas.getActiveObject()) return;
+    },
+    serialize: () => {},
+    deserialize: () => {},
   },
 });
 
 export const {
-  init, selectLayer, addText, addImg, addImgURL, deleteItem, deleteSelectedLayer, reset,
+  init,
+  selectLayer,
+  addText,
+  addImg,
+  addImgURL,
+  deleteItem,
+  deleteSelectedLayer,
+  reset,
+  changeTextColor,
+  setFontSize,
+  setFontFamily,
+  setToBold,
+  setToItalic,
+  underlineText,
 } = canvasSlice.actions;
 export const canvasReducer = canvasSlice.reducer;
