@@ -142,34 +142,38 @@ const canvasSlice = createSlice({
     addImg: (state, action: PayloadAction<HTMLImageElement>) => {
       const elem = getCanvas(state.canvasId);
       if (elem && elem.fabric) {
-        const { fabric: canvas } = elem;
-
+        const { fabric: canvas }: { fabric: any } = elem;
         const imgElem = action.payload;
         const id = uuidv4();
         const options: fabric.IImageOptions = {
           name: id,
         };
-        // // @ts-ignore
-        // if (canvas?.width < imgElem.naturalWidth) {
-        //   // @ts-ignore
-        //   const ratio = canvas.width / imgElem.naturalWidth;
-        //   options.width = canvas.width;
-        //   options.height = imgElem.naturalHeight * ratio;
-        //   // @ts-ignore
-        // } else if (canvas.height < imgElem.naturalHeight) {
-        //   // @ts-ignore
-        //   const ratio = canvas.height / imgElem.naturalHeight;
-        //   options.height = canvas.height;
-        //   options.width = imgElem.naturalWidth * ratio;
-        // }
+        // @ts-ignore
         const image = new fabric.Image(action.payload, options);
+        if (
+          canvas?.width < imgElem.naturalWidth &&
+          canvas.height < imgElem.naturalHeight
+        ) {
+          image.scale(0.1);
+          // @ts-ignore
+          // const ratio = canvas.width / imgElem.naturalWidth;
+          // options.width = canvas.width;
+          // options.height = imgElem.naturalHeight * ratio;
+          // @ts-ignore
+        }
+        // else if (canvas.height < imgElem.naturalHeight) {
+        //   // @ts-ignore
+        //   // const ratio = canvas.height / imgElem.naturalHeight;
+        //   // options.height = canvas.height;
+        //   // options.width = imgElem.naturalWidth * ratio;
+        // }
 
         canvas.centerObject(image);
         canvas.add(image);
         canvas.requestRenderAll();
         state.canvasObjects = canvas
           .getObjects()
-          .map((i) => i.toObject(["name", "type"]));
+          .map((i: any) => i.toObject(["name", "type"]));
       }
     },
     deleteItem: (state, { payload: id }: PayloadAction<string>) => {
