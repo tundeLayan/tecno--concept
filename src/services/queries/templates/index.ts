@@ -49,8 +49,8 @@ const read = (options = { query: config.queryArgs }) => {
 };
 
 // fetch one template
-const readOne = (options = {}, id: string = "") => {
-  const { isLoading, data, isSuccess } = useQuery(
+const readOne = (id: string = "", options = {}) => {
+  const { isLoading, data, isSuccess, ...rest } = useQuery(
     [templates.readOne, id],
     () => api.get({ url: `${BASE_URL}/${id}` }),
     {
@@ -61,7 +61,7 @@ const readOne = (options = {}, id: string = "") => {
     }
   );
 
-  return { isLoading, data, isSuccess };
+  return { isLoading, data, isSuccess, ...rest };
 };
 
 // create template
@@ -71,7 +71,7 @@ const create = (successCallback = (path: string) => {}, options = {}) => {
     ...options,
     onSuccess: (res) => {
       // console.log("res is", res);
-      successCallback(res.data.title);
+      successCallback(res.data.id);
     },
     onError: (err) => {},
   });

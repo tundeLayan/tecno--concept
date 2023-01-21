@@ -29,7 +29,8 @@ interface IProps {
 
 // TODO: move each to their own components
 const GoogleBtn = ({ handleCloseModal }: Partial<IProps>) => {
-  const { mutate, isLoading, data, isSuccess } = queries.read();
+  const url = "/auth/google/authorize";
+  const { mutate, isLoading, data, isSuccess } = queries.read(url);
 
   const login = useGoogleLogin({
     onSuccess: (tokenResponse) => {
@@ -56,7 +57,8 @@ interface IFacebookResponse {
   data_access_expiration_time: number;
 }
 const FaceBookBtn = ({ handleCloseModal }: Partial<IProps>) => {
-  const { mutate } = queries.read();
+  const url = "/auth/facebook/authorize";
+  const { mutate } = queries.read(url);
   const responseFacebook = (response: IFacebookResponse) => {
     handleCloseModal?.();
     mutate(response.accessToken);

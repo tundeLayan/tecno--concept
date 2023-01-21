@@ -23,7 +23,7 @@ import queryKey from "./keys";
 const BASE_URL = "/auth/google/authorize";
 
 // login
-const read = (options = {}) => {
+const read = (url = BASE_URL, options = {}) => {
   const router: NavigateFunction = useNavigate();
   const path: Location = useLocation();
   const param = useParams();
@@ -50,7 +50,7 @@ const read = (options = {}) => {
   return {
     mutate: (body: string) => {
       return mutate({
-        url: `${BASE_URL}?access_token=${body}`,
+        url: `${url}?access_token=${body}`,
         body: "",
         auth: false,
       });

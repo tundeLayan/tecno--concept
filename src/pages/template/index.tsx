@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useRef, useContext, useState } from "react";
 
 import { fabric } from "fabric";
 import { useDispatch } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useLocation, Location } from "react-router-dom";
 
 import { TemplateContainer } from "../../components/styles/Template";
 import MenuBar from "../../components/MenuBar";
@@ -16,8 +16,11 @@ import queries from "../../services/queries/templates";
 // All things for the canvas will be added here
 const Template = () => {
   const [searchParams] = useSearchParams();
-  // console.log("search Params", searchParams.get("width"));
   const { setCanvas } = useContext(CanvasCTX);
+  const location: Location = useLocation();
+
+  // console.log("location", location);
+  // const {isLoading, data, isSuccess, isFetching} = queries.readOne(searchParams);
 
   const [dimensions, setDimensions] = useState<{ width: any; height: any }>({
     width: null,

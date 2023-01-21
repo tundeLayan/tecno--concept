@@ -64,14 +64,14 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
   const router = useNavigate();
   const { mutate, isLoading, data, isSuccess } = queries.create((path) => {
     handleCloseModal();
-    router(`${path}?width=1080&height=1080`);
+    router(`/template/${path}?width=1080&height=1080`);
   });
   const theme: DefaultTheme = useTheme();
   const handleCreate = () => {
     const tempName = generateName();
     mutate({
       title: tempName,
-      media_hash: {},
+      media_hash: JSON.stringify({}),
     });
   };
 
