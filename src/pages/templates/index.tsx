@@ -187,6 +187,7 @@ export default function Home() {
                       `/template/${dt.id}?name=${dt.title}&width=1080&height=1080`
                     )
                   }
+                  label={dt.title}
                 />
               ))
             ) : (
