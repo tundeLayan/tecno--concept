@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 
 import { useTheme, DefaultTheme } from "styled-components";
 import { useNavigate } from "react-router-dom";
+import {
+  uniqueNamesGenerator,
+  adjectives,
+  colors,
+  animals,
+} from "unique-names-generator";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -46,10 +52,28 @@ const generateID = () => {
   return id;
 };
 
+const generateName = () => {
+  const shortName = uniqueNamesGenerator({
+    dictionaries: [adjectives, animals, colors], // colors can be omitted here as not used
+    length: 2,
+  });
+  return shortName;
+};
+
 const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
   const router = useNavigate();
-
+  const { mutate, isLoading, data, isSuccess } = queries.create((path) => {
+    handleCloseModal();
+    router(`${path}?width=1080&height=1080`);
+  });
   const theme: DefaultTheme = useTheme();
+  const handleCreate = () => {
+    const tempName = generateName();
+    mutate({
+      title: tempName,
+      media_hash: {},
+    });
+  };
 
   return (
     <Modal
@@ -72,10 +96,7 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
           <Card
             label="Launch Ad"
             iconText={<img src={Template1} alt="" />}
-            onClick={() => {
-              handleCloseModal();
-              router("/template/campaign?width=1080&height=1080");
-            }}
+            onClick={handleCreate}
           />
           <Card
             label="Phone Launch"

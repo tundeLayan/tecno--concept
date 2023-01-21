@@ -65,12 +65,13 @@ const readOne = (options = {}, id: string = "") => {
 };
 
 // create template
-const create = (options = {}) => {
+const create = (successCallback = (path: string) => {}, options = {}) => {
   const { mutate, isLoading, data, isSuccess } = useMutation(api.post, {
     mutationKey: [templates.create],
     ...options,
     onSuccess: (res) => {
-      console.log("res is", res);
+      // console.log("res is", res);
+      successCallback(res.data.title);
     },
     onError: (err) => {},
   });

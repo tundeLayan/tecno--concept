@@ -45,17 +45,28 @@ const GoogleBtn = ({ handleCloseModal }: Partial<IProps>) => {
     </GoogleAuthButton>
   );
 };
-
-const FaceBookBtn = () => {
-  const responseFacebook = (response: any) => {
-    console.log(response);
+interface IFacebookResponse {
+  name: string;
+  id: string;
+  accessToken: string;
+  userID: string;
+  expiresIn: number;
+  signedRequest: string;
+  graphDomain: string;
+  data_access_expiration_time: number;
+}
+const FaceBookBtn = ({ handleCloseModal }: Partial<IProps>) => {
+  const { mutate } = queries.read();
+  const responseFacebook = (response: IFacebookResponse) => {
+    handleCloseModal?.();
+    mutate(response.accessToken);
   };
   return (
     <FacebookLogin
       appId={process.env.REACT_APP_CLIENT_APP_ID || ""}
-      autoLoad
+      // autoLoad
       callback={responseFacebook}
-      fields="name,email,picture"
+      // fields="name,email,picture"
       render={(renderProps) => (
         <GoogleAuthButton onClick={renderProps.onClick}>
           <GoogleLogo /> Login with facebook
@@ -75,7 +86,7 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
         <br />
         <div className="container">
           <GoogleBtn {...{ handleCloseModal }} />
-          <FaceBookBtn />
+          <FaceBookBtn {...{ handleCloseModal }} />
           <p className="sign-up">
             No account? <Link to="/">Sign Up</Link>
           </p>
