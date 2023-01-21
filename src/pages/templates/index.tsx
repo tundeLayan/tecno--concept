@@ -20,6 +20,7 @@ import {
   RecentDesign4,
   TemplateCard,
   EmptyState,
+  Template1,
 } from "../../components/svgs";
 import Modal from "../../components/Modal";
 import { useModals } from "../../contexts/Modal";
@@ -48,7 +49,12 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
   const theme: DefaultTheme = useTheme();
 
   return (
-    <Modal isOpen={showModal} contentLabel="" onRequestClose={handleCloseModal}>
+    <Modal
+      width="75%"
+      isOpen={showModal}
+      contentLabel=""
+      onRequestClose={handleCloseModal}
+    >
       <>
         <h1 className="modal-header">All Templates</h1>
         <br />
@@ -61,15 +67,23 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
           }}
         >
           <Card
-            iconText="Templates"
             label="Launch Ad"
+            iconText={<img src={Template1} alt="" />}
             onClick={() => {
               handleCloseModal();
               router("/template/campaign");
             }}
           />
-          <Card iconText="Templates" label="Phone Launch" onClick={() => {}} />
-          <Card iconText="Templates" label="Engagement Ad" onClick={() => {}} />
+          <Card
+            label="Phone Launch"
+            onClick={() => {}}
+            iconText={<img src={Template1} alt="" />}
+          />
+          <Card
+            label="Engagement Ad"
+            onClick={() => {}}
+            iconText={<img src={Template1} alt="" />}
+          />
         </div>
       </>
       <style>

@@ -34,8 +34,10 @@ import RecentDesign3 from "../../assets/images/recent_design3.png";
 import RecentDesign4 from "../../assets/images/recent_design4.png";
 import LandingImage from "../../assets/images/landing_image.png";
 import TemplateCard from "../../assets/images/template_card.png";
+import Template1 from "../../assets/images/template1.png";
 
 export {
+  Template1,
   EmptyState,
   TemplateCard,
   Italize,

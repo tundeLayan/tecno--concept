@@ -21,6 +21,7 @@ const Card = styled.div<any>`
   background-position: center;
   background-repeat: none;
   background-size: cover;
+  flex: 1;
 
   /* text-shadow: 0px 12px 12px rgba(0, 0, 0, 0.16), 0px 0px 1px rgba(0, 0, 0, 0.4); */
   :hover {

@@ -8,9 +8,16 @@ interface IProps {
   isOpen: boolean;
   contentLabel: string;
   onRequestClose: () => void;
+  width?: string;
 }
 
-const Modal = ({ children, isOpen, contentLabel, onRequestClose }: IProps) => {
+const Modal = ({
+  children,
+  isOpen,
+  contentLabel,
+  onRequestClose,
+  width = "50%",
+}: IProps) => {
   const theme: DefaultTheme = useTheme();
   return (
     <>
@@ -40,7 +47,7 @@ const Modal = ({ children, isOpen, contentLabel, onRequestClose }: IProps) => {
             outline: "none",
             padding: `${theme.space[5]}`,
             transform: "translate(-50%, -50%)",
-            width: "50%",
+            width: width,
           },
         }}
       >
