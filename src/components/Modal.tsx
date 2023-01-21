@@ -20,12 +20,13 @@ const Modal = ({ children, isOpen, contentLabel, onRequestClose }: IProps) => {
         overlayClassName="Overlay"
         style={{
           overlay: {
-            position: "absolute",
+            position: "fixed",
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
             backgroundColor: "rgba(255,255,255,.6)",
+            zIndex: 10000,
           },
           content: {
             position: "absolute",
@@ -39,7 +40,6 @@ const Modal = ({ children, isOpen, contentLabel, onRequestClose }: IProps) => {
             outline: "none",
             padding: `${theme.space[5]}`,
             transform: "translate(-50%, -50%)",
-            zIndex: 10000000000000000000000,
             width: "50%",
           },
         }}

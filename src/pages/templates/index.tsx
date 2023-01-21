@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useTheme, DefaultTheme } from "styled-components";
 import {
   useRoutes,
@@ -21,6 +22,9 @@ import {
 import Modal from "../../components/Modal";
 import { useModals } from "../../contexts/Modal";
 import RenderIf from "../../utils";
+import queries from "../../services/queries/templates";
+import { getLocalStorage } from "../../services/helper";
+import config from "../../config";
 
 const Icons = [
   { Icon: Facebook, label: "Facebook Post", type: "icon" },
@@ -38,6 +42,7 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
   const router = useNavigate();
 
   const theme: DefaultTheme = useTheme();
+
   return (
     <Modal isOpen={showModal} contentLabel="" onRequestClose={handleCloseModal}>
       <h1 className="modal-header">All Templates</h1>
@@ -71,8 +76,20 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
     </Modal>
   );
 };
+
+const generateArray = (size: number = 4) => {
+  return Array(size).fill(null);
+};
 export default function Home() {
   const { showModal, handleOpenModal, handleCloseModal } = useModals();
+  const { data, isLoading, isFetching } = queries.read();
+  const [userDetails] = useState(() => {
+    return getLocalStorage(config.tokenKey);
+  });
+  useEffect(() => {
+    handleCloseModal();
+  }, []);
+  // if (isLoading) return <h1>Loading...</h1>;
   return (
     <>
       <Container>
@@ -81,18 +98,29 @@ export default function Home() {
         </RenderIf>
         <div className="top">
           <div className="top__greetings">
-            <h1>Welcome, Gabriel</h1>
+            <h1>Welcome, {userDetails.first_name}</h1>
             <p>Let&apos;s start creating</p>
           </div>
           <div className="top__templates">
-            <Card
-              iconText="Templates"
-              label="Browse all"
-              onClick={handleOpenModal}
-            />
-            {Icons.map((Icon, idx) => (
-              <Card key={idx} iconText={<Icon.Icon />} label={Icon.label} />
-            ))}
+            <RenderIf condition={!isLoading}>
+              <Card
+                iconText="Templates"
+                label="Browse all"
+                onClick={handleOpenModal}
+              />
+              {Icons.map((Icon, idx) => (
+                <Card
+                  key={Icon.label}
+                  iconText={<Icon.Icon />}
+                  label={Icon.label}
+                />
+              ))}
+            </RenderIf>
+            <RenderIf condition={isLoading}>
+              {generateArray(5).map((_, idx) => (
+                <Card loading={true} />
+              ))}
+            </RenderIf>
           </div>
         </div>
         <div className="bottom">

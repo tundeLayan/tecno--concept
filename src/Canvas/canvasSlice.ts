@@ -227,8 +227,35 @@ const canvasSlice = createSlice({
       const { fabric: canvas } = getCanvas(state.canvasId);
       if (!canvas.getActiveObject()) return;
     },
-    serialize: () => {},
-    deserialize: () => {},
+    serialize: (state) => {
+      const { fabric: canvas } = getCanvas(state.canvasId);
+      console.log("canvas.toJSON()", canvas.toJSON());
+      console.log("stringify canvas.toJSON()", canvas.toObject());
+    },
+    deserialize: (state) => {},
+    zoom: (state, { payload }) => {
+      const { fabric: canvas } = getCanvas(state.canvasId);
+      canvas.setZoom(payload.zoomValue);
+    },
+    setBackgroundImage: (state) => {
+      const { fabric: canvas } = getCanvas(state.canvasId);
+      canvas.backgroundColor = "pink";
+      canvas.requestRenderAll();
+      // fabric.Image.fromURL(
+      //   "http://fabricjs.com/assets/honey_im_subtle.png",
+      //   (img: fabric.Image) => {
+      //     img.set({
+      //       width: canvas.width,
+      //       height: canvas.height,
+      //       originX: "left",
+      //       originY: "top",
+      //     });
+      //     canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+      //   }
+      // );
+
+      // canvas.requestRenderAll();
+    },
   },
 });
 
@@ -247,5 +274,9 @@ export const {
   setToBold,
   setToItalic,
   underlineText,
+  zoom,
+  setBackgroundImage,
+  serialize,
+  deserialize,
 } = canvasSlice.actions;
 export const canvasReducer = canvasSlice.reducer;

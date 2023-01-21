@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Card = styled.div`
   border-radius: ${(props) => props.theme.sizes[0]};
@@ -9,7 +9,7 @@ const Card = styled.div`
   min-height: 12.5rem;
   position: relative;
   /* TODO: Add the appropriate font */
-  font-family: 'AvertaStd-Semibold';
+  font-family: "AvertaStd-Semibold";
   font-size: ${(props) => props.theme.fontSizes.h5};
   line-height: 32px;
   text-shadow: ${(props) => props.theme.colors.box_shadow.primary};
@@ -26,6 +26,7 @@ const Card = styled.div`
     transform: translateX(-50%);
     bottom: -60%;
     & > img {
+      width: 100%;
       height: 180px !important;
     }
   }

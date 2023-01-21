@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { CirclePicker } from "react-color";
@@ -31,6 +31,9 @@ import {
   setToBold,
   setToItalic,
   underlineText,
+  zoom,
+  setBackgroundImage,
+  serialize,
 } from "../Canvas";
 import ImageUploadButton from "./AddImage";
 
@@ -86,12 +89,15 @@ const MenuBar = () => {
     getCanvas(state.canvas.canvasId)
   );
 
+  // color pallette
   const [showColorPallete, setShowColorPallete] = useState(false);
   const [selectedColor, setSelectedColor] = useState("black");
 
+  // fonts(family, size)
   const [selectedFontSize, setSelectedFontSize] = useState(28);
   const [showFonts, setShowFonts] = useState(false);
 
+  //
   const [isBold, setIsBold] = useState(false);
   const [isItalized, setIsItalized] = useState(false);
   const [isUnderlined, setIsUnderlined] = useState(false);
@@ -101,7 +107,14 @@ const MenuBar = () => {
     "left"
   );
 
+  const [zoomValue, setZoomValue] = useState(1);
+
   const [activeMenu, setActiveMenu] = useState("");
+
+  useEffect(() => {
+    dispatch(zoom({ zoomValue }));
+  }, [zoomValue]);
+
   if (!elem) return null;
   const { fabric: canvas } = elem;
 
@@ -139,8 +152,13 @@ const MenuBar = () => {
   };
 
   const handleTextAlign = () => {};
-  const handleAddZoomIn = () => {};
-  const handleAddZoomOut = () => {};
+  const handleAddZoomIn = () => {
+    setZoomValue((prev) => prev + 1);
+  };
+  const handleAddZoomOut = () => {
+    if (zoomValue <= 1) return;
+    setZoomValue((prev) => prev - 1);
+  };
   const handleDownload = () => {};
   return (
     <>
@@ -203,15 +221,7 @@ const MenuBar = () => {
               </span>
             </div>
           </RenderIf>
-          {/* <RenderIf condition={showFontSizes && activeMenu === "fontSizes"}>
-            <ul className="list">
-              {fontSizes.map((fontSize, idx) => (
-                <li role="none" key={idx} onClick={() => handleFont(fontSize)}>
-                  {fontSize}
-                </li>
-              ))}
-            </ul>
-          </RenderIf> */}
+
           <span role="none" onClick={handleFont}>
             Font
           </span>
@@ -263,18 +273,32 @@ const MenuBar = () => {
             Align
           </span>
         </DarkButton>
-        <DarkButton textSize="md" onClick={() => handleAddZoomIn()} variant={2}>
-          <ZoomOutIcon />
-        </DarkButton>
         <DarkButton
           textSize="md"
           onClick={() => handleAddZoomOut()}
           variant={2}
         >
+          <ZoomOutIcon />
+        </DarkButton>
+        <DarkButton textSize="md" onClick={() => handleAddZoomIn()} variant={2}>
           <ZoomInIcon />
         </DarkButton>
         <DarkButton textSize="md" onClick={() => download()} variant={2}>
           Download
+        </DarkButton>
+        {/* <DarkButton
+          textSize="md"
+          onClick={() => dispatch(setBackgroundImage())}
+          variant={2}
+        >
+          Set background
+        </DarkButton> */}
+        <DarkButton
+          textSize="md"
+          onClick={() => dispatch(serialize())}
+          variant={2}
+        >
+          Serialize
         </DarkButton>
       </MenuBarStyle>
     </>

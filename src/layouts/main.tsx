@@ -1,10 +1,11 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from "react";
 
-// import { useRouter } from 'next/router';
+import { useNavigate, NavigateFunction } from "react-router-dom";
 
-// import { routes } from '../routes';
-import { MainContainer } from '../components/styles/Main/Body';
-import { Navbar } from '../components/partials';
+import { MainContainer } from "../components/styles/Main/Body";
+import { Navbar } from "../components/partials";
+import { getLocalStorage } from "../services/helper";
+import config from "../config";
 
 interface IProps {
   children: ReactNode;
@@ -12,6 +13,14 @@ interface IProps {
 }
 const Main = (props: IProps) => {
   const { children, variant = 1 } = props;
+  const router: NavigateFunction = useNavigate();
+  // TODO: if not logged in, redirect to the landing page
+
+  useEffect(() => {
+    if (getLocalStorage(config.tokenKey) === null) {
+      router("/");
+    }
+  }, []);
 
   return (
     <div>

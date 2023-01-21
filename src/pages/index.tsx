@@ -1,9 +1,9 @@
-import { ReactNode } from "react";
+import React from "react";
 
+import { useGoogleLogin } from "@react-oauth/google";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import { useNavigate, NavigateFunction, Link } from "react-router-dom";
-import ReactModal from "react-modal";
 import { useTheme, DefaultTheme } from "styled-components";
-import GoogleLogin from "react-google-login";
 
 import {
   Container,
@@ -20,42 +20,51 @@ import {
 } from "../components/svgs";
 import Modal from "../components/Modal";
 import { useModals } from "../contexts/Modal";
+import queries from "../services/queries/auth";
 
 interface IProps {
   showModal: boolean;
   handleCloseModal: () => void;
 }
 
-const GoogleBtn = () => {
-  const googleResponseSuccess = (response: any) => {
-    console.log("success", response);
-  };
+// TODO: move each to their own components
+const GoogleBtn = ({ handleCloseModal }: Partial<IProps>) => {
+  const { mutate, isLoading, data, isSuccess } = queries.read();
 
-  console.log("process", process.env);
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => {
+      // console.log(tokenResponse);
+      handleCloseModal?.();
+      mutate(tokenResponse.access_token);
+    },
+  });
+
   return (
-    <GoogleLogin
-      clientId={process.env.REACT_APP_GOOGLE_CLIENT_KEY || ""}
+    <GoogleAuthButton onClick={() => login()}>
+      <GoogleLogo /> Login with Google
+    </GoogleAuthButton>
+  );
+};
+
+const FaceBookBtn = () => {
+  const responseFacebook = (response: any) => {
+    console.log(response);
+  };
+  return (
+    <FacebookLogin
+      appId={process.env.REACT_APP_CLIENT_APP_ID || ""}
+      // autoLoad
+      callback={responseFacebook}
       render={(renderProps) => (
-        <GoogleAuthButton
-          onClick={() => {
-            renderProps.onClick();
-          }}
-          disabled={renderProps.disabled}
-        >
-          <GoogleLogo /> Login with Google
+        <GoogleAuthButton onClick={renderProps.onClick}>
+          <GoogleLogo /> Login with facebook
         </GoogleAuthButton>
       )}
-      buttonText="Login"
-      onSuccess={googleResponseSuccess}
-      onFailure={googleResponseSuccess}
-      cookiePolicy={"single_host_origin"}
     />
   );
 };
 
 const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
-  const router = useNavigate();
-
   const theme: DefaultTheme = useTheme();
   return (
     <Modal isOpen={showModal} contentLabel="" onRequestClose={handleCloseModal}>
@@ -64,10 +73,8 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
         <br />
         <br />
         <div className="container">
-          <GoogleBtn />
-          <GoogleAuthButton>
-            <GoogleLogo /> Login with facebook
-          </GoogleAuthButton>
+          <GoogleBtn {...{ handleCloseModal }} />
+          <FaceBookBtn />
           <p className="sign-up">
             No account? <Link to="/">Sign Up</Link>
           </p>
@@ -93,7 +100,6 @@ const Home = () => {
   const { showModal, handleOpenModal, handleCloseModal } = useModals();
   return (
     <>
-      {/* <button onClick={handleOpenModal}>Show Modal</button> */}
       <Container>
         <LeftContainer>
           <Header>
@@ -104,9 +110,7 @@ const Home = () => {
             Be in control of your ideas
           </Subtitle>
           <br />
-          <FilledButton onClick={() => router("/templates")}>
-            Start Here
-          </FilledButton>
+          <FilledButton onClick={handleOpenModal}>Start Here</FilledButton>
         </LeftContainer>
         <RightContainer>
           <div>
@@ -114,7 +118,7 @@ const Home = () => {
           </div>
         </RightContainer>
       </Container>
-      <TemplatesModal {...{ showModal, handleCloseModal }}>Hey</TemplatesModal>
+      <TemplatesModal {...{ showModal, handleCloseModal }} />
     </>
   );
 };

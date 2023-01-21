@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Navbar = styled.header`
   display: flex;
@@ -6,7 +6,8 @@ const Navbar = styled.header`
   padding: ${(props) => `${props.theme.space[5]} ${props.theme.space[5]}`};
   background-color: ${(props) => props.theme.colors.bg.secondary};
   @media screen and (max-width: 900px) {
-    padding: ${(props) => `${props.theme.space[4]} ${props.theme.space[3]} !important`};
+    padding: ${(props) =>
+      `${props.theme.space[4]} ${props.theme.space[3]} !important`};
   }
 `;
 const NavbarV2 = styled.header`
@@ -26,6 +27,7 @@ const NavbarV2 = styled.header`
     display: flex;
     align-items: center;
     gap: 1rem;
+    position: relative;
     &__profile-image {
       border: 1px solid;
       padding: 0.5rem;
@@ -43,7 +45,8 @@ const NavbarV2 = styled.header`
     display: none;
   }
   @media screen and (max-width: 900px) {
-    padding: ${(props) => `${props.theme.space[2]} ${props.theme.space[3]} !important`};
+    padding: ${(props) =>
+      `${props.theme.space[2]} ${props.theme.space[3]} !important`};
     p.home-button {
       display: none;
     }
@@ -58,7 +61,7 @@ const NavbarV2 = styled.header`
 `;
 const Logo = styled.div`
   p {
-    font-family: 'Kaushan Script';
+    font-family: "Kaushan Script";
     font-weight: ${(props) => props.theme.fontWeights.small};
     font-size: ${(props) => props.theme.fontSizes.body};
     /* line-height: 1.625rem; */

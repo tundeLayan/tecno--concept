@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "styled-components";
 // import { ToastContainer } from "react-toastify";
 import { BrowserRouter } from "react-router-dom";
-import { fabric } from "fabric";
+
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import "nprogress/nprogress.css";
 // import "react-toastify/dist/ReactToastify.min.css";
@@ -20,6 +22,17 @@ import CanvasControls from "./Toolbox/Toolbox";
 import ContextMenu from "./Canvas/ContextMenu/ContextMenu";
 import { CanvasCTX } from "./Canvas";
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+    mutations: {
+      retry: false,
+    },
+  },
+});
+
 function App() {
   const [domLoaded, setDomLoaded] = useState(false);
   // const [canvasVal, setCanvasVal] = useState<fabric.Canvas>();
@@ -35,30 +48,36 @@ function App() {
 
   // TODO: cleanup and remove canvas here
   return (
-    <BrowserRouter>
-      <ModalProvider>
-        <ThemeProvider theme={theme}>
-          {/* <ToastContainer /> */}
-          <Pages />
-          {/* <CanvasCTX.Provider
-            value={{
-              canvas: canvasVal,
-              setCanvas,
-            }}
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={1}>
-                <CanvasControls />
-              </Grid>
-              <div>
-                <CanvasApp />
-              </div>
-            </Grid>
-            <ContextMenu />
-          </CanvasCTX.Provider> */}
-        </ThemeProvider>
-      </ModalProvider>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <GoogleOAuthProvider
+        clientId={process.env.REACT_APP_GOOGLE_CLIENT_KEY || ""}
+      >
+        <BrowserRouter>
+          <ModalProvider>
+            <ThemeProvider theme={theme}>
+              {/* <ToastContainer /> */}
+              <Pages />
+              {/* <CanvasCTX.Provider
+                value={{
+                  canvas: canvasVal,
+                  setCanvas,
+                }}
+              >
+                <Grid container spacing={2}>
+                  <Grid item xs={1}>
+                    <CanvasControls />
+                  </Grid>
+                  <div>
+                    <CanvasApp />
+                  </div>
+                </Grid>
+                <ContextMenu />
+              </CanvasCTX.Provider> */}
+            </ThemeProvider>
+          </ModalProvider>
+        </BrowserRouter>
+      </GoogleOAuthProvider>
+    </QueryClientProvider>
   );
 }
 

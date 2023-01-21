@@ -1,16 +1,27 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from "react";
 
-import { Navbar, Logo } from '../components/styles/Auth/Navbar';
-import { Button } from '../components/styles/Button';
-import { MainContainer } from '../components/styles/Auth/Body';
+import { useNavigate, NavigateFunction } from "react-router-dom";
 
-import logo from '../assets/images/logo.png';
+import { Navbar, Logo } from "../components/styles/Auth/Navbar";
+import { Button } from "../components/styles/Button";
+import { MainContainer } from "../components/styles/Auth/Body";
+
+import logo from "../assets/images/logo.png";
+import { getLocalStorage } from "../services/helper";
+import config from "../config";
 
 interface IProps {
   children: ReactNode;
 }
 const Auth = (props: IProps) => {
   const { children } = props;
+  const router: NavigateFunction = useNavigate();
+
+  useEffect(() => {
+    if (getLocalStorage(config.tokenKey) !== null) {
+      router("/templates");
+    }
+  }, []);
 
   return (
     <div>
