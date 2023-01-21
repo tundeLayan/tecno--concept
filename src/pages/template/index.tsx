@@ -14,7 +14,12 @@ import debounce from "lodash.debounce";
 
 import { TemplateContainer } from "../../components/styles/Template";
 import MenuBar from "../../components/MenuBar";
-import { init, CanvasCTX, deserialize } from "../../Canvas";
+import {
+  init,
+  CanvasCTX,
+  deserialize,
+  deleteSelectedLayer,
+} from "../../Canvas";
 import queries from "../../services/queries/templates";
 // import {
 //   ObjectTypes,
@@ -100,6 +105,19 @@ const Template = () => {
     });
 
     canvas.renderAll();
+
+    let canvasWrapper = document.getElementById("canvas-wrap") as any;
+    canvasWrapper.tabIndex = 1000;
+    canvasWrapper.addEventListener(
+      "keydown",
+      (event: any) => {
+        if (event.keyCode === 8) {
+          dispatch(deleteSelectedLayer());
+        }
+      },
+      false
+    );
+
     // canvas.on("mouse:down", (event) => {
     //   // double click action
     //   if (event.button === 3) {
@@ -147,7 +165,7 @@ const Template = () => {
 
   return (
     <TemplateContainer>
-      <div ref={canvRef} className="canvas-container">
+      <div ref={canvRef} className="canvas-container" id="canvas-wrap">
         <canvas id="canvas2">canvas</canvas>
       </div>
 

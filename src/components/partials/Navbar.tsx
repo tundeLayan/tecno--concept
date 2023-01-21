@@ -8,6 +8,7 @@ import {
   TwitterShareButton,
   LinkedinShareButton,
 } from "react-share";
+import { googleLogout } from "@react-oauth/google";
 
 import { Logo, Navbar, NavbarV2 } from "../styles/Main/Navbar";
 import { InverseButton, DarkButton } from "../styles/Button";
@@ -20,12 +21,21 @@ import {
   ShareIcon,
 } from "../svgs";
 import logo from "../../assets/images/logo.png";
-import { getLocalStorage } from "../../services/helper";
+import { getLocalStorage, clearLocalStorage } from "../../services/helper";
 import config from "../../config";
 import RenderIf from "../../utils";
 interface IProps {
   variant: 1 | 2;
 }
+
+const logout = (successCallback = () => {}) => {
+  let isGoogleLogin = getLocalStorage(config.tokenKey)?.iss.includes("google");
+  isGoogleLogin && googleLogout();
+  clearLocalStorage(config.tokenKey);
+  setTimeout(() => {
+    successCallback();
+  }, 300);
+};
 
 const SocialShare = () => {
   return (
@@ -218,7 +228,9 @@ const NavbarComp = ({ variant }: IProps) => {
             <img width={80} height={15} alt="" src={logo} />
             <p>Recreate</p>
           </Logo>
-          <InverseButton>Logout</InverseButton>
+          <InverseButton onClick={() => logout(() => router("/"))}>
+            Logout
+          </InverseButton>
         </Navbar>
       ) : (
         <NavbarV2>

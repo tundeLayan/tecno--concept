@@ -61,21 +61,21 @@ const read = (url = BASE_URL, options = {}) => {
   };
 };
 
-// const del = (options = {}) => {
-//   const response = useQuery(
-//     [queryKey.read],
-//     () => api.get({ url: `${BASE_URL}/logout` }),
-//     {
-//       ...options,
-//       onSuccess: () => {},
-//       onError: () => {},
-//     },
-//   );
+const del = (options = {}) => {
+  const response = useQuery(
+    [queryKey.read],
+    () => api.get({ url: `${BASE_URL}/` }),
+    {
+      ...options,
+      onSuccess: () => {},
+      onError: () => {},
+    }
+  );
 
-//   return response;
-// };
+  return response;
+};
 
 // const queries = { create, read, delete: del };
-const queries = { read };
+const queries = { read, delete: del };
 
 export default queries;
