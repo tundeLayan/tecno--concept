@@ -286,20 +286,20 @@ const MenuBar = () => {
         <DarkButton textSize="md" onClick={() => download()} variant={2}>
           Download
         </DarkButton>
-        {/* <DarkButton
+        <DarkButton
           textSize="md"
           onClick={() => dispatch(setBackgroundImage())}
           variant={2}
         >
           Set background
-        </DarkButton> */}
-        <DarkButton
+        </DarkButton>
+        {/* <DarkButton
           textSize="md"
           onClick={() => dispatch(serialize())}
           variant={2}
         >
           Serialize
-        </DarkButton>
+        </DarkButton> */}
       </MenuBarStyle>
     </>
   );

@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTheme, DefaultTheme } from "styled-components";
-import {
-  useRoutes,
-  useLocation,
-  Location,
-  useNavigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Container } from "../../components/styles/Templates";
 import { Card, CardV2 } from "../../components/Cards";
@@ -71,17 +66,23 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
             iconText={<img src={Template1} alt="" />}
             onClick={() => {
               handleCloseModal();
-              router("/template/campaign");
+              router("/template/campaign?width=1080&height=1080");
             }}
           />
           <Card
             label="Phone Launch"
-            onClick={() => {}}
+            onClick={() => {
+              handleCloseModal();
+              router("/template/campaign?width=1080&height=1080");
+            }}
             iconText={<img src={Template1} alt="" />}
           />
           <Card
             label="Engagement Ad"
-            onClick={() => {}}
+            onClick={() => {
+              handleCloseModal();
+              router("/template/campaign?width=1080&height=1080");
+            }}
             iconText={<img src={Template1} alt="" />}
           />
         </div>
@@ -102,7 +103,7 @@ const generateArray = (size: number = 4) => {
 };
 export default function Home() {
   const { showModal, handleOpenModal, handleCloseModal } = useModals();
-  const { data, isLoading, isFetching } = queries.read();
+  const { data, isLoading } = queries.read();
   const [userDetails] = useState(() => {
     return getLocalStorage(config.tokenKey);
   });

@@ -32,22 +32,12 @@ const Template = () => {
   const canvRef = useRef<any>(null);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (searchParams.get("width") || searchParams.get("height")) {
-      setDimensions({
-        width: searchParams.get("width") || "100%",
-        height: searchParams.get("height") || "100%",
-      });
-    } else {
-    }
-  }, [searchParams.get("width"), searchParams.get("height")]);
-
   useLayoutEffect(() => {
     // TODO: if not new template, load from canvas
 
     const canvas = new fabric.Canvas("canvas2", {
-      height: canvRef.current?.offsetHeight,
-      width: canvRef.current?.offsetWidth,
+      height: searchParams.get("height") || canvRef.current?.offsetHeight,
+      width: searchParams.get("width") || canvRef.current?.offsetWidth,
       fireRightClick: true,
       fireMiddleClick: true,
       stopContextMenu: true,

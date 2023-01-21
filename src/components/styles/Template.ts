@@ -11,9 +11,9 @@ const TemplateContainer = styled.div`
     position: relative;
     margin: auto;
     height: 70vh;
-    width: 50%;
+
     .canvas {
-      width: 45%;
+      width: 100%;
       min-height: calc(100vh - 2.8057rem - 11.5rem);
       background: ${(props) => props.theme.colors.bg.secondary};
       margin: auto;
