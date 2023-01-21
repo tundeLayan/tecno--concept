@@ -1,31 +1,43 @@
-import React, { useLayoutEffect, useRef, useContext, useState } from "react";
+import React, {
+  useLayoutEffect,
+  useRef,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 
 import { fabric } from "fabric";
 import { useDispatch } from "react-redux";
-import { useSearchParams, useLocation, Location } from "react-router-dom";
+import { useSearchParams, useParams } from "react-router-dom";
+import debounce from "lodash.debounce";
 
 import { TemplateContainer } from "../../components/styles/Template";
 import MenuBar from "../../components/MenuBar";
-import { init, CanvasCTX } from "../../Canvas";
+import { init, CanvasCTX, deserialize } from "../../Canvas";
 import queries from "../../services/queries/templates";
 // import {
 //   ObjectTypes,
 //   openContextMenu,
 // } from "../../Canvas/ContextMenu/contextMenuSlice";
 
+const parseToJson = (str: string) => {
+  try {
+    let obj = JSON.parse(str); // this is how you parse a string into JSON
+    return obj;
+  } catch (ex) {
+    console.error(ex);
+  }
+};
+
 // All things for the canvas will be added here
 const Template = () => {
   const [searchParams] = useSearchParams();
   const { setCanvas } = useContext(CanvasCTX);
-  const location: Location = useLocation();
+  const params = useParams();
 
-  // console.log("location", location);
-  // const {isLoading, data, isSuccess, isFetching} = queries.readOne(searchParams);
-
-  const [dimensions, setDimensions] = useState<{ width: any; height: any }>({
-    width: null,
-    height: null,
-  });
+  const { isLoading, data, isSuccess, isFetching } = queries.readOne(params.id);
+  const { mutate } = queries.update();
 
   const canvRef = useRef<any>(null);
   const dispatch = useDispatch();
@@ -68,9 +80,15 @@ const Template = () => {
     canvas.calcOffset();
   }
 
+  function isEmptyObject(obj: any) {
+    return JSON.stringify(obj) === "{}";
+  }
+
+  const debouncedSearch = useCallback(debounce(mutate, 1000), []);
+
   useLayoutEffect(() => {
     // TODO: if not new template, load from canvas
-
+    // console.log("media hash", parseToJson(data?.data?.media_hash));
     const canvas = new fabric.Canvas("canvas2", {
       height: canvRef.current?.offsetHeight,
       width: canvRef.current?.offsetWidth,
@@ -81,10 +99,6 @@ const Template = () => {
       backgroundImage: undefined,
     });
 
-    // canvas.loadFromJSON(
-    //   '{"objects":[{"type":"rect","left":50,"top":50,"width":20,"height":20,"fill":"green","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":false,"transparentCorners":true,"perPixelTargetFind":false,"rx":0,"ry":0},{"type":"circle","left":100,"top":100,"width":100,"height":100,"fill":"red","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":false,"transparentCorners":true,"perPixelTargetFind":false,"radius":50}],"background":"rgba(0, 0, 0, 0)"}',
-    //   () => {}
-    // );
     canvas.renderAll();
     // canvas.on("mouse:down", (event) => {
     //   // double click action
@@ -106,8 +120,13 @@ const Template = () => {
     //   }
     // });
     canvas.on("object:modified", function (event) {
-      console.log("canvas changed");
-      // event.target
+      let dataObj = {
+        title: searchParams.get("name") || "",
+        media_hash: JSON.stringify({ objects: canvas.toJSON().objects }),
+        _method: "PUT",
+        // background: canvas.toJSON()?.background
+      };
+      debouncedSearch(dataObj, params?.id || "");
     });
 
     setCanvas(canvas);
@@ -116,8 +135,16 @@ const Template = () => {
 
     dispatch(init("canvas2"));
   }, []);
+  useEffect(() => {
+    if (data && !isEmptyObject(parseToJson(data?.data?.media_hash))) {
+      // console.log("not empty", data?.data?.media_hash);
+      dispatch(deserialize({ data: data?.data?.media_hash }));
+    }
+    return () => {};
+  }, [data]);
 
   // if (dimensions.height === null || dimensions.width === null) return null;
+
   return (
     <TemplateContainer>
       <div ref={canvRef} className="canvas-container">

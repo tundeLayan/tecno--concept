@@ -12,11 +12,13 @@ const TemplateContainer = styled.div`
     margin: auto;
     min-height: 75vh;
     width: 45%;
+    background-color: white;
     .canvas {
       width: 100%;
       min-height: calc(100vh - 2.8057rem - 11.5rem);
       background: ${(props) => props.theme.colors.bg.secondary};
       margin: auto;
+      background-color: white;
     }
     @media screen and (max-width: 900px) {
       align-items: center;

@@ -233,10 +233,10 @@ const NavbarComp = ({ variant }: IProps) => {
 
           <h3
             className="canvas-title"
-            contentEditable
-            onInput={(e) =>
-              console.log("Text inside div", e.currentTarget.textContent)
-            }
+            // contentEditable
+            // onInput={(e) =>
+            //   console.log("Text inside div", e.currentTarget.textContent)
+            // }
           >
             {params.id || "Untitled Design"}
           </h3>

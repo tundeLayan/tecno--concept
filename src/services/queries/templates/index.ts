@@ -65,13 +65,16 @@ const readOne = (id: string = "", options = {}) => {
 };
 
 // create template
-const create = (successCallback = (path: string) => {}, options = {}) => {
+const create = (
+  successCallback = (path: string, name: string) => {},
+  options = {}
+) => {
   const { mutate, isLoading, data, isSuccess } = useMutation(api.post, {
     mutationKey: [templates.create],
     ...options,
     onSuccess: (res) => {
       // console.log("res is", res);
-      successCallback(res.data.id);
+      successCallback(`${res.data.id}`, `${res.data.title}`);
     },
     onError: (err) => {},
   });
@@ -84,7 +87,24 @@ const create = (successCallback = (path: string) => {}, options = {}) => {
 };
 
 // update template
+const update = (options = {}) => {
+  const { mutate, isLoading, data, isSuccess } = useMutation(api.put, {
+    mutationKey: [templates.create],
+    ...options,
+    onSuccess: (res) => {
+      // console.log("res is", res);
+    },
+    onError: (err) => {},
+  });
+  return {
+    mutate: (body: any, id: string) =>
+      mutate({ url: `${BASE_URL}/${id}`, body }),
+    isLoading,
+    data,
+    isSuccess,
+  };
+};
 
-const queries = { read, readOne, create };
+const queries = { read, readOne, create, update };
 
 export default queries;

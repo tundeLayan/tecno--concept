@@ -62,10 +62,12 @@ const generateName = () => {
 
 const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
   const router = useNavigate();
-  const { mutate, isLoading, data, isSuccess } = queries.create((path) => {
-    handleCloseModal();
-    router(`/template/${path}?width=1080&height=1080`);
-  });
+  const { mutate, isLoading, data, isSuccess } = queries.create(
+    (path, name) => {
+      handleCloseModal();
+      router(`/template/${path}?name=${name}&width=1080&height=1080`);
+    }
+  );
   const theme: DefaultTheme = useTheme();
   const handleCreate = () => {
     const tempName = generateName();
@@ -136,6 +138,7 @@ export default function Home() {
   const [userDetails] = useState(() => {
     return getLocalStorage(config.tokenKey);
   });
+
   useEffect(() => {
     handleCloseModal();
   }, []);

@@ -236,7 +236,14 @@ const canvasSlice = createSlice({
       console.log("canvas.toJSON()", canvas.toJSON());
       console.log("stringify canvas.toJSON()", canvas.toObject());
     },
-    deserialize: (state) => {},
+    deserialize: (state, { payload }) => {
+      const { fabric: canvas } = getCanvas(state.canvasId);
+      console.log("payload", payload);
+      // if(payload.data){
+      canvas.loadFromJSON(payload.data, () => {});
+      // // }
+      canvas.renderAll();
+    },
     zoom: (state, { payload }) => {
       const { fabric: canvas } = getCanvas(state.canvasId);
       canvas.setZoom(payload.zoomValue);

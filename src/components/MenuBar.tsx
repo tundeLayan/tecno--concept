@@ -293,13 +293,13 @@ const MenuBar = () => {
         >
           Set background
         </DarkButton>
-        {/* <DarkButton
+        <DarkButton
           textSize="md"
           onClick={() => dispatch(serialize())}
           variant={2}
         >
           Serialize
-        </DarkButton> */}
+        </DarkButton>
       </MenuBarStyle>
     </>
   );
