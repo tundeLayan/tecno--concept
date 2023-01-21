@@ -26,14 +26,18 @@ import { ReactComponent as CenterAlign } from "./center_align.svg";
 import { ReactComponent as Italize } from "./italize_icon.svg";
 import { ReactComponent as Bold } from "./bold_icon.svg";
 import { ReactComponent as Underline } from "./underline_icon.svg";
+import { ReactComponent as EmptyState } from "./empty_state.svg";
 
 import RecentDesign1 from "../../assets/images/recent_design1.png";
 import RecentDesign2 from "../../assets/images/recent_design2.png";
 import RecentDesign3 from "../../assets/images/recent_design3.png";
 import RecentDesign4 from "../../assets/images/recent_design4.png";
 import LandingImage from "../../assets/images/landing_image.png";
+import TemplateCard from "../../assets/images/template_card.png";
 
 export {
+  EmptyState,
+  TemplateCard,
   Italize,
   Bold,
   Underline,

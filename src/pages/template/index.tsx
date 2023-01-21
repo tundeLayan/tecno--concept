@@ -103,9 +103,7 @@ const Template = () => {
   return (
     <TemplateContainer>
       <div ref={canvRef} className="canvas-container">
-        <canvas id="canvas2" style={{ border: "1px solid red" }}>
-          canvas
-        </canvas>
+        <canvas id="canvas2">canvas</canvas>
       </div>
 
       <MenuBar />

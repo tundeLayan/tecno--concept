@@ -10,12 +10,14 @@ interface IProps {
   iconText: any;
   loading: boolean;
   onClick: () => void;
+  bgImage?: string;
 }
 const Card = ({
   label,
   iconText,
   loading = false,
   onClick,
+  bgImage,
 }: Partial<IProps>) => {
   const theme: DefaultTheme = useTheme();
   if (loading) return <CardShimmer />;
@@ -26,7 +28,7 @@ const Card = ({
         className="top__templates__card-container"
         {...{ onClick }}
       >
-        <StyledCard>{iconText}</StyledCard>
+        <StyledCard bgImage={bgImage && bgImage}>{iconText}</StyledCard>
         <p className="top__templates__label">{label}</p>
       </div>
       <style>{`

@@ -57,26 +57,26 @@ const SocialShare = () => {
             gap: ".3rem",
           }}
         >
-          <span
-            style={{
-              flex: "1",
-              borderRadius: "50%",
-              padding: "1rem",
-              backgroundColor: "#EBECF0",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              cursor: "pointer",
-            }}
+          <FacebookShareButton
+            url={`https://facebook.com`}
+            quote={`Hiii🤗 sharing on facebook`}
+            // hashtag={hashTagsWithHash[0]}
           >
-            <FacebookShareButton
-              url={`https://facebook.com`}
-              quote={`Hiii🤗 sharing on facebook`}
-              // hashtag={hashTagsWithHash[0]}
+            <span
+              style={{
+                flex: "1",
+                borderRadius: "50%",
+                padding: "1rem",
+                backgroundColor: "#EBECF0",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
             >
               <FacebookShare />
-            </FacebookShareButton>
-          </span>
+            </span>
+          </FacebookShareButton>
           <p
             style={{
               fontWeight: "600",
@@ -95,27 +95,27 @@ const SocialShare = () => {
             gap: ".3rem",
           }}
         >
-          <span
-            style={{
-              flex: "1",
-              borderRadius: "50%",
-              padding: "1rem",
-              backgroundColor: "#EBECF0",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              cursor: "pointer",
-            }}
+          <TwitterShareButton
+            url={`url here`}
+            title={`Hi This is exciting! `}
+            via={"tecno-phantom"}
+            // hashtags={hashTagsWithoutHash}
           >
-            <TwitterShareButton
-              url={`url here`}
-              title={`Hiii🤗 This is exciting! I found an astounding digital product I'm sure you would love. Click this link to check it out: `}
-              via={"kreatesell"}
-              // hashtags={hashTagsWithoutHash}
+            <span
+              style={{
+                flex: "1",
+                borderRadius: "50%",
+                padding: "1rem",
+                backgroundColor: "#EBECF0",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
             >
               <TwitterShare />
-            </TwitterShareButton>
-          </span>
+            </span>
+          </TwitterShareButton>
           <p
             style={{
               fontWeight: "600",
@@ -141,22 +141,22 @@ const SocialShare = () => {
             gap: ".3rem",
           }}
         >
-          <span
-            style={{
-              flex: "1",
-              borderRadius: "50%",
-              padding: "1rem",
-              backgroundColor: "#EBECF0",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              cursor: "pointer",
-            }}
-          >
-            <LinkedinShareButton url="" title="" summary="" source="">
+          <LinkedinShareButton url="" title="" summary="" source="">
+            <span
+              style={{
+                flex: "1",
+                borderRadius: "50%",
+                padding: "1rem",
+                backgroundColor: "#EBECF0",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+            >
               <LinkedinShare />
-            </LinkedinShareButton>
-          </span>
+            </span>
+          </LinkedinShareButton>
           <p
             style={{
               fontWeight: "600",
@@ -210,6 +210,7 @@ const NavbarComp = ({ variant }: IProps) => {
   const token = getLocalStorage(config.tokenKey);
 
   const [openShareModal, setOpenShareModal] = useState(false);
+  const [contentEditable, setContentEditable] = useState(false);
   return (
     <div>
       {variant === 1 ? (
@@ -230,7 +231,11 @@ const NavbarComp = ({ variant }: IProps) => {
             <BackArrow />
             <p className="home-button">Home</p>
           </DarkButton>
-          <h3 className="canvas-title">{params.id || "Untitled Design"}</h3>
+          {contentEditable ? (
+            <></>
+          ) : (
+            <h3 className="canvas-title">{params.id || "Untitled Design"}</h3>
+          )}
           <div className="profile-actions">
             <span className="profile-actions__profile-image">
               {token.first_name[0]}

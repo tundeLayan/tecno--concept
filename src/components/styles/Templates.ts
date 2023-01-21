@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Container = styled.main`
   display: flex;
@@ -39,12 +39,12 @@ const Container = styled.main`
       display: flex;
       justify-content: space-between;
       /* grid-template-columns: repeat(5, minmax(14.5%, 14.5%)); */
-      width: 75%;
+      width: 72%;
       gap: 3rem;
       &__label {
         font-weight: ${(props) => props.theme.fontWeights.medium};
         font-size: ${(props) => props.theme.fontSizes.body2};
-        line-height: 2.8125rem;
+        /* line-height: 2.8125rem; */
         text-align: center;
         color: ${(props) => props.theme.colors.text.secondary};
       }

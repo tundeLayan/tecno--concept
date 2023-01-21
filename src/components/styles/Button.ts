@@ -24,6 +24,7 @@ const Button = styled.button.attrs(() => ({
   align-items: center;
   justify-content: space-between;
   gap: 5px;
+  /* display: inline-block; */
   :hover {
     cursor: pointer;
     opacity: 0.7;

@@ -18,6 +18,8 @@ import {
   RecentDesign2,
   RecentDesign3,
   RecentDesign4,
+  TemplateCard,
+  EmptyState,
 } from "../../components/svgs";
 import Modal from "../../components/Modal";
 import { useModals } from "../../contexts/Modal";
@@ -25,6 +27,8 @@ import RenderIf from "../../utils";
 import queries from "../../services/queries/templates";
 import { getLocalStorage } from "../../services/helper";
 import config from "../../config";
+import { FilledButton } from "../../components/styles/Button";
+import { EmptyContainer } from "../../components/styles/EmptyRecentDesigns";
 
 const Icons = [
   { Icon: Facebook, label: "Facebook Post", type: "icon" },
@@ -45,34 +49,36 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
 
   return (
     <Modal isOpen={showModal} contentLabel="" onRequestClose={handleCloseModal}>
-      <h1 className="modal-header">All Templates</h1>
-      <br />
-      <br />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          gap: "1rem",
-        }}
-      >
-        <Card
-          iconText="Templates"
-          label="Launch Ad"
-          onClick={() => {
-            handleCloseModal();
-            router("/template/campaign");
+      <>
+        <h1 className="modal-header">All Templates</h1>
+        <br />
+        <br />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "1rem",
           }}
-        />
-        <Card iconText="Templates" label="Phone Launch" onClick={() => {}} />
-        <Card iconText="Templates" label="Engagement Ad" onClick={() => {}} />
-        <style>
-          {`
+        >
+          <Card
+            iconText="Templates"
+            label="Launch Ad"
+            onClick={() => {
+              handleCloseModal();
+              router("/template/campaign");
+            }}
+          />
+          <Card iconText="Templates" label="Phone Launch" onClick={() => {}} />
+          <Card iconText="Templates" label="Engagement Ad" onClick={() => {}} />
+        </div>
+      </>
+      <style>
+        {`
           .modal-header{
             color: ${theme.colors.text.secondary};
           }
         `}
-        </style>
-      </div>
+      </style>
     </Modal>
   );
 };
@@ -89,7 +95,6 @@ export default function Home() {
   useEffect(() => {
     handleCloseModal();
   }, []);
-  // if (isLoading) return <h1>Loading...</h1>;
   return (
     <>
       <Container>
@@ -107,8 +112,9 @@ export default function Home() {
                 iconText="Templates"
                 label="Browse all"
                 onClick={handleOpenModal}
+                bgImage={"/images/template_card.png"}
               />
-              {Icons.map((Icon, idx) => (
+              {Icons.map((Icon) => (
                 <Card
                   key={Icon.label}
                   iconText={<Icon.Icon />}
@@ -118,21 +124,38 @@ export default function Home() {
             </RenderIf>
             <RenderIf condition={isLoading}>
               {generateArray(5).map((_, idx) => (
-                <Card loading={true} />
+                <Card key={idx} loading={true} />
               ))}
             </RenderIf>
           </div>
         </div>
         <div className="bottom">
           <h1>Recent Designs</h1>
+
           <div className="bottom__recent-designs">
-            <CardV2 icon={RecentDesign1} />
-            <CardV2 icon={RecentDesign2} />
-            <CardV2 icon={RecentDesign3} />
-            <CardV2 icon={RecentDesign4} />
+            {data?.data?.data.length > 0 ? (
+              <>
+                <CardV2 icon={RecentDesign1} />
+                <CardV2 icon={RecentDesign2} />
+                <CardV2 icon={RecentDesign3} />
+                <CardV2 icon={RecentDesign4} />
+              </>
+            ) : (
+              <EmptyRecentDesigns />
+            )}
           </div>
         </div>
       </Container>
     </>
   );
 }
+
+const EmptyRecentDesigns = () => {
+  return (
+    <EmptyContainer>
+      <EmptyState />
+      <h5>No design created yet!</h5>
+      <p>Start Creating your designs</p>
+    </EmptyContainer>
+  );
+};
