@@ -53,8 +53,9 @@ const FaceBookBtn = () => {
   return (
     <FacebookLogin
       appId={process.env.REACT_APP_CLIENT_APP_ID || ""}
-      // autoLoad
+      autoLoad
       callback={responseFacebook}
+      fields="name,email,picture"
       render={(renderProps) => (
         <GoogleAuthButton onClick={renderProps.onClick}>
           <GoogleLogo /> Login with facebook

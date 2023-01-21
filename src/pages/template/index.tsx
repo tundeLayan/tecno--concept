@@ -7,10 +7,11 @@ import { useSearchParams } from "react-router-dom";
 import { TemplateContainer } from "../../components/styles/Template";
 import MenuBar from "../../components/MenuBar";
 import { init, CanvasCTX } from "../../Canvas";
-import {
-  ObjectTypes,
-  openContextMenu,
-} from "../../Canvas/ContextMenu/contextMenuSlice";
+import queries from "../../services/queries/templates";
+// import {
+//   ObjectTypes,
+//   openContextMenu,
+// } from "../../Canvas/ContextMenu/contextMenuSlice";
 
 // All things for the canvas will be added here
 const Template = () => {

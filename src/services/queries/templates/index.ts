@@ -39,14 +39,7 @@ const read = (options = { query: config.queryArgs }) => {
   const response = useQuery(hash, () => readFn(query), {
     ...options,
     keepPreviousData: true,
-    onSuccess: (data: any) => {
-      // if (data.nextPage) {
-      //   const nextHash = [...hash];
-      //   nextHash[1] = Number(nextHash[1]) + 1;
-      //   const nextQuery: any = { ...query, pageNumber: nextHash[1] };
-      //   queryClient.prefetchQuery(nextHash, () => readFn(nextQuery));
-      // }
-    },
+    onSuccess: (data: any) => {},
     onError: () => {},
   });
 
@@ -54,6 +47,43 @@ const read = (options = { query: config.queryArgs }) => {
 
   return { ...response, data };
 };
-const queries = { read };
+
+// fetch one template
+const readOne = (options = {}, id: string = "") => {
+  const { isLoading, data, isSuccess } = useQuery(
+    [templates.readOne, id],
+    () => api.get({ url: `${BASE_URL}/${id}` }),
+    {
+      ...options,
+      onSuccess: () => {},
+      onError: () => {},
+      enabled: !!id,
+    }
+  );
+
+  return { isLoading, data, isSuccess };
+};
+
+// create template
+const create = (options = {}) => {
+  const { mutate, isLoading, data, isSuccess } = useMutation(api.post, {
+    mutationKey: [templates.create],
+    ...options,
+    onSuccess: (res) => {
+      console.log("res is", res);
+    },
+    onError: (err) => {},
+  });
+  return {
+    mutate: (body: any) => mutate({ url: `${BASE_URL}`, body }),
+    isLoading,
+    data,
+    isSuccess,
+  };
+};
+
+// update template
+
+const queries = { read, readOne, create };
 
 export default queries;

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+
 import { useTheme, DefaultTheme } from "styled-components";
 import { useNavigate } from "react-router-dom";
+
+import { v4 as uuidv4 } from "uuid";
 
 import { Container } from "../../components/styles/Templates";
 import { Card, CardV2 } from "../../components/Cards";
@@ -37,6 +40,11 @@ interface IProps {
   showModal: boolean;
   handleCloseModal: () => void;
 }
+
+const generateID = () => {
+  const id = uuidv4();
+  return id;
+};
 
 const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
   const router = useNavigate();

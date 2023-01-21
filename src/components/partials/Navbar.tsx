@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-wrap-multilines */
-import React, { useState } from "react";
+import React, { useState, useRef, ReactNode } from "react";
 
 import { useNavigate, NavigateFunction, useParams } from "react-router-dom";
 import {
@@ -210,7 +210,6 @@ const NavbarComp = ({ variant }: IProps) => {
   const token = getLocalStorage(config.tokenKey);
 
   const [openShareModal, setOpenShareModal] = useState(false);
-  const [contentEditable, setContentEditable] = useState(false);
   return (
     <div>
       {variant === 1 ? (
@@ -231,11 +230,16 @@ const NavbarComp = ({ variant }: IProps) => {
             <BackArrow />
             <p className="home-button">Home</p>
           </DarkButton>
-          {contentEditable ? (
-            <></>
-          ) : (
-            <h3 className="canvas-title">{params.id || "Untitled Design"}</h3>
-          )}
+
+          <h3
+            className="canvas-title"
+            contentEditable
+            onInput={(e) =>
+              console.log("Text inside div", e.currentTarget.textContent)
+            }
+          >
+            {params.id || "Untitled Design"}
+          </h3>
           <div className="profile-actions">
             <span className="profile-actions__profile-image">
               {token.first_name[0]}
