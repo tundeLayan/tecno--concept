@@ -25,6 +25,10 @@ import {
   TemplateCard,
   EmptyState,
   Template1,
+  FacebookLogo,
+  InstagramLogo,
+  LinkedInLogo,
+  TwitterLogo,
 } from "../../components/svgs";
 import Modal from "../../components/Modal";
 import { useModals } from "../../contexts/Modal";
@@ -36,10 +40,30 @@ import { FilledButton } from "../../components/styles/Button";
 import { EmptyContainer } from "../../components/styles/EmptyRecentDesigns";
 
 const Icons = [
-  { Icon: Facebook, label: "Facebook Post", type: "icon" },
-  { Icon: Twitter, label: "Twitter Post", type: "icon" },
-  { Icon: Instagram, label: "Instagram Post", type: "icon" },
-  { Icon: Linkedin, label: "Linkedin Post", type: "icon" },
+  {
+    Icon: <img src={FacebookLogo} alt="facebook icon" />,
+    label: "Facebook Post",
+    type: "icon",
+    name: "facebook",
+  },
+  {
+    Icon: <img src={TwitterLogo} alt="twitter icon" />,
+    label: "Twitter Post",
+    type: "icon",
+    name: "twitter",
+  },
+  {
+    Icon: <img src={InstagramLogo} alt="facebook icon" />,
+    label: "Instagram Post",
+    type: "icon",
+    name: "instagram",
+  },
+  {
+    Icon: <img src={LinkedInLogo} alt="facebook icon" />,
+    label: "Linkedin Post",
+    type: "icon",
+    name: "linkedin",
+  },
 ];
 
 interface IProps {
@@ -160,8 +184,13 @@ export default function Home() {
               {Icons.map((Icon) => (
                 <Card
                   key={Icon.label}
-                  iconText={<Icon.Icon />}
+                  iconText={Icon.Icon}
                   label={Icon.label}
+                  onClick={() =>
+                    router(
+                      `/template/${Icon.name}?name=${Icon.name}&width=1080&height=1080`
+                    )
+                  }
                 />
               ))}
             </RenderIf>

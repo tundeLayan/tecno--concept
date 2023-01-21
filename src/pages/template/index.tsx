@@ -19,6 +19,8 @@ import {
   CanvasCTX,
   deserialize,
   deleteSelectedLayer,
+  moveObjectFoward,
+  moveObjectBackward,
 } from "../../Canvas";
 import queries from "../../services/queries/templates";
 // import {
@@ -89,7 +91,7 @@ const Template = () => {
     return JSON.stringify(obj) === "{}";
   }
 
-  const debouncedSearch = useCallback(debounce(mutate, 1000), []);
+  const debouncedSearch = useCallback(debounce(mutate, 1500), []);
 
   useLayoutEffect(() => {
     // TODO: if not new template, load from canvas
@@ -111,9 +113,18 @@ const Template = () => {
     canvasWrapper.addEventListener(
       "keydown",
       (event: any) => {
+        // console.log("event.keyCode", event.keyCode);
         if (event.keyCode === 8) {
           dispatch(deleteSelectedLayer());
         }
+        if (event.keyCode === 39) {
+          dispatch(moveObjectFoward());
+        }
+        if (event.keyCode === 37) {
+          dispatch(moveObjectBackward());
+        }
+        // if up arrow, move selected object front
+        // if down arrow, move selected object back
       },
       false
     );

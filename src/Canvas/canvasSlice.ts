@@ -238,7 +238,7 @@ const canvasSlice = createSlice({
     },
     deserialize: (state, { payload }) => {
       const { fabric: canvas } = getCanvas(state.canvasId);
-      console.log("payload", payload);
+      // console.log("payload", payload);
       // if(payload.data){
       canvas.loadFromJSON(payload.data, () => {});
       // // }
@@ -267,6 +267,18 @@ const canvasSlice = createSlice({
 
       // canvas.requestRenderAll();
     },
+    moveObjectFoward: (state) => {
+      const { fabric: canvas } = getCanvas(state.canvasId);
+      canvas.getActiveObject()?.bringToFront();
+      canvas.getActiveObject()?.bringForward(true);
+      canvas.requestRenderAll();
+    },
+    moveObjectBackward: (state) => {
+      const { fabric: canvas } = getCanvas(state.canvasId);
+      canvas.getActiveObject()?.sendToBack();
+      canvas.getActiveObject()?.sendBackwards(true);
+      canvas.requestRenderAll();
+    },
   },
 });
 
@@ -289,5 +301,7 @@ export const {
   setBackgroundImage,
   serialize,
   deserialize,
+  moveObjectFoward,
+  moveObjectBackward,
 } = canvasSlice.actions;
 export const canvasReducer = canvasSlice.reducer;

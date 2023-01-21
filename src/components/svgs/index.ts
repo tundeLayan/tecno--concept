@@ -35,8 +35,16 @@ import RecentDesign4 from "../../assets/images/recent_design4.png";
 import LandingImage from "../../assets/images/landing_image.png";
 import TemplateCard from "../../assets/images/template_card.png";
 import Template1 from "../../assets/images/template1.png";
+import FacebookLogo from "../../assets/images/facebook_logo.png";
+import InstagramLogo from "../../assets/images/instagram_logo.png";
+import LinkedInLogo from "../../assets/images/linkedin_logo.png";
+import TwitterLogo from "../../assets/images/twitter_logo.png";
 
 export {
+  FacebookLogo,
+  InstagramLogo,
+  LinkedInLogo,
+  TwitterLogo,
   Template1,
   EmptyState,
   TemplateCard,
