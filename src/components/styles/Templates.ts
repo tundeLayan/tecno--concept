@@ -48,6 +48,7 @@ const Container = styled.main`
         text-align: center;
         color: ${(props) => props.theme.colors.text.secondary};
       }
+
       /* border: 1px solid green; */
     }
     @media screen and (max-width: 900px) {
@@ -96,7 +97,11 @@ const Container = styled.main`
       display: flex;
       justify-content: space-between;
       gap: 2rem;
+      flex-wrap: wrap;
       /* grid-template-columns: repeat(4, minmax(23%, 23%)); */
+      .card-v2-container {
+        flex: 0 0 20%;
+      }
     }
   }
   @media screen and (max-width: 900px) {

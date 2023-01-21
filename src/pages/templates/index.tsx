@@ -47,11 +47,6 @@ interface IProps {
   handleCloseModal: () => void;
 }
 
-const generateID = () => {
-  const id = uuidv4();
-  return id;
-};
-
 const generateName = () => {
   const shortName = uniqueNamesGenerator({
     dictionaries: [adjectives, animals, colors], // colors can be omitted here as not used
@@ -133,6 +128,7 @@ const generateArray = (size: number = 4) => {
   return Array(size).fill(null);
 };
 export default function Home() {
+  const router = useNavigate();
   const { showModal, handleOpenModal, handleCloseModal } = useModals();
   const { data, isLoading } = queries.read();
   const [userDetails] = useState(() => {
@@ -176,18 +172,30 @@ export default function Home() {
             </RenderIf>
           </div>
         </div>
+        {/* {console.log("data", data?.data?.data)} */}
         <div className="bottom">
           <h1>Recent Designs</h1>
 
           <div className="bottom__recent-designs">
             {data?.data?.data.length > 0 ? (
-              <>
-                <CardV2 icon={RecentDesign1} />
-                <CardV2 icon={RecentDesign2} />
-                <CardV2 icon={RecentDesign3} />
-                <CardV2 icon={RecentDesign4} />
-              </>
+              data?.data?.data?.map((dt: any, idx: number) => (
+                <CardV2
+                  icon={RecentDesign1}
+                  key={idx}
+                  onClick={() =>
+                    router(
+                      `/template/${dt.id}?name=${dt.title}&width=1080&height=1080`
+                    )
+                  }
+                />
+              ))
             ) : (
+              // <>
+              //   <CardV2 icon={RecentDesign1} />
+              //   <CardV2 icon={RecentDesign2} />
+              //   <CardV2 icon={RecentDesign3} />
+              //   <CardV2 icon={RecentDesign4} />
+              // </>
               <EmptyRecentDesigns />
             )}
           </div>
