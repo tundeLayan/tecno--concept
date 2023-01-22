@@ -1,16 +1,15 @@
-import React, { ChangeEventHandler, useRef } from 'react';
+import React, { ChangeEventHandler, useRef } from "react";
 
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 
-import { addImg } from '../Canvas';
-import { DarkButton } from './styles/Button';
+import { addImg } from "../Canvas";
+import { DarkButton } from "./styles/Button";
 
 export default function ImageUploadButton() {
   const dispatch = useDispatch();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const onFileChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    console.log('clicked');
     const reader = new FileReader();
     reader.onload = (event) => {
       const imgObj = new Image();
@@ -22,15 +21,29 @@ export default function ImageUploadButton() {
     };
 
     if (e.target.files) {
+      if (e.target.files[0].size > 2097152) {
+        alert("File is too large!. Max file size is 2mb");
+        return;
+      }
       const file = e.target.files.item(0) as File;
       reader.readAsDataURL(file);
     }
   };
 
   return (
-    <DarkButton variant={1} textSize="md" onClick={() => fileInputRef.current?.click()}>
+    <DarkButton
+      variant={1}
+      textSize="md"
+      onClick={() => fileInputRef.current?.click()}
+    >
       Add Image
-      <input onChange={onFileChange} style={{ display: 'none' }} ref={fileInputRef} type="file" />
+      <input
+        onChange={onFileChange}
+        style={{ display: "none" }}
+        ref={fileInputRef}
+        type="file"
+        max={1}
+      />
     </DarkButton>
   );
 }
