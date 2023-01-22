@@ -121,18 +121,12 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
           />
           <Card
             label="Phone Launch"
-            onClick={() => {
-              handleCloseModal();
-              router("/template/campaign?width=1080&height=1080");
-            }}
+            onClick={handleCreate}
             iconText={<img src={Template1} alt="" />}
           />
           <Card
             label="Engagement Ad"
-            onClick={() => {
-              handleCloseModal();
-              router("/template/campaign?width=1080&height=1080");
-            }}
+            onClick={handleCreate}
             iconText={<img src={Template1} alt="" />}
           />
         </div>
@@ -151,6 +145,7 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
 const generateArray = (size: number = 4) => {
   return Array(size).fill(null);
 };
+
 export default function Home() {
   const router = useNavigate();
   const { showModal, handleOpenModal, handleCloseModal } = useModals();
@@ -162,6 +157,18 @@ export default function Home() {
   useEffect(() => {
     handleCloseModal();
   }, []);
+
+  const { mutate } = queries.create((path, name) => {
+    handleCloseModal();
+    router(`/template/${path}?width=1080&height=1080`);
+  });
+  const handleCreate = () => {
+    const tempName = generateName();
+    mutate({
+      title: tempName,
+      media_hash: JSON.stringify({}),
+    });
+  };
   return (
     <>
       <Container>
@@ -186,11 +193,7 @@ export default function Home() {
                   key={Icon.label}
                   iconText={Icon.Icon}
                   label={Icon.label}
-                  onClick={() =>
-                    router(
-                      `/template/${Icon.name}?name=${Icon.name}&width=1080&height=1080`
-                    )
-                  }
+                  onClick={handleCreate}
                 />
               ))}
             </RenderIf>
@@ -212,9 +215,7 @@ export default function Home() {
                   icon={RecentDesign1}
                   key={idx}
                   onClick={() =>
-                    router(
-                      `/template/${dt.id}?name=${dt.title}&width=1080&height=1080`
-                    )
+                    router(`/template/${dt.id}?width=1080&height=1080`)
                   }
                   label={dt.title}
                 />

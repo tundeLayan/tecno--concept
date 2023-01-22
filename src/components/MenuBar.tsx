@@ -121,12 +121,13 @@ const MenuBar = () => {
 
   const download = () => {
     const url = canvas?.toDataURL({
-      format: "png",
+      format: "jpeg",
+      quality: 1,
     });
 
     if (url) {
       const link = document.createElement("a");
-      link.download = `tecno-${new Date().toISOString()}.png`;
+      link.download = `tecno-${new Date().toISOString()}.jpg`;
       link.href = url;
       link.click();
     }

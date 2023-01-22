@@ -1,7 +1,12 @@
 /* eslint-disable react/jsx-wrap-multilines */
-import React, { useState, useRef, ReactNode } from "react";
+import React, { useState, useRef, ReactNode, useCallback } from "react";
 
-import { useNavigate, NavigateFunction, useParams } from "react-router-dom";
+import {
+  useNavigate,
+  NavigateFunction,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import {
   FacebookShareButton,
   WhatsappShareButton,
@@ -9,6 +14,7 @@ import {
   LinkedinShareButton,
 } from "react-share";
 import { googleLogout } from "@react-oauth/google";
+import debounce from "lodash.debounce";
 
 import { Logo, Navbar, NavbarV2 } from "../styles/Main/Navbar";
 import { InverseButton, DarkButton } from "../styles/Button";
@@ -24,6 +30,7 @@ import logo from "../../assets/images/logo.png";
 import { getLocalStorage, clearLocalStorage } from "../../services/helper";
 import config from "../../config";
 import RenderIf from "../../utils";
+import queries from "../../services/queries/templates";
 interface IProps {
   variant: 1 | 2;
 }
@@ -216,10 +223,16 @@ const SocialShare = () => {
 
 const NavbarComp = ({ variant }: IProps) => {
   const router: NavigateFunction = useNavigate();
-  const params = useParams();
+  // const params = useParams();
   const token = getLocalStorage(config.tokenKey);
+  const params = useParams();
 
   const [openShareModal, setOpenShareModal] = useState(false);
+  const { isLoading, data } = queries.readOne(params.id);
+  const { mutate } = queries.update();
+
+  const debouncedSearch = useCallback(debounce(mutate, 1500), []);
+
   return (
     <div>
       {variant === 1 ? (
@@ -245,12 +258,16 @@ const NavbarComp = ({ variant }: IProps) => {
 
           <h3
             className="canvas-title"
-            // contentEditable
-            // onInput={(e) =>
-            //   console.log("Text inside div", e.currentTarget.textContent)
-            // }
+            contentEditable
+            onInput={(e) => {
+              console.log("Text inside div", e.currentTarget.textContent);
+              debouncedSearch(
+                { title: e.currentTarget.textContent },
+                params.id || ""
+              );
+            }}
           >
-            {params.id || "Untitled Design"}
+            {data?.data?.title || "Untitled Design"}
           </h3>
           <div className="profile-actions">
             <span className="profile-actions__profile-image">

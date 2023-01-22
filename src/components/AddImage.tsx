@@ -21,8 +21,8 @@ export default function ImageUploadButton() {
     };
 
     if (e.target.files) {
-      if (e.target.files[0].size > 2097152) {
-        alert("File is too large!. Max file size is 2mb");
+      if (e.target.files[0].size > 5242880) {
+        alert("File is too large!. Max file size is 5mb");
         return;
       }
       const file = e.target.files.item(0) as File;

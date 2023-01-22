@@ -11,7 +11,7 @@ const TemplateContainer = styled.div`
     position: relative;
     margin: auto;
     min-height: 75vh;
-    width: 40%;
+    width: 35%;
     background-color: white;
     .canvas {
       width: 100%;
