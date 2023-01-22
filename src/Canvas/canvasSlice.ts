@@ -212,9 +212,10 @@ const canvasSlice = createSlice({
       canvas.getActiveObject()?.set("fill", payload);
       canvas.requestRenderAll();
     },
-    textAlign: (state, { payload }: PayloadAction<string>) => {
+    textAlignFn: (state, { payload }: PayloadAction<string>) => {
       const { fabric: canvas } = getCanvas(state.canvasId);
-      // canvas.getActiveObject()?.set("textAlign", "left");
+      // console.log("clicked");
+      // canvas.getActiveObject()?.set("textAlign", payload);
     },
     setFontSize: (state, { payload }) => {
       const { fabric: canvas } = getCanvas(state.canvasId);
@@ -303,5 +304,6 @@ export const {
   deserialize,
   moveObjectFoward,
   moveObjectBackward,
+  textAlignFn,
 } = canvasSlice.actions;
 export const canvasReducer = canvasSlice.reducer;

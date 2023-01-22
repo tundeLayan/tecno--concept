@@ -104,6 +104,7 @@ const Template = () => {
       stopContextMenu: true,
       backgroundColor: "white",
       backgroundImage: undefined,
+      preserveObjectStacking: true,
     });
 
     canvas.renderAll();

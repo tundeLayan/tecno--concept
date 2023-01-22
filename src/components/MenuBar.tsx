@@ -34,6 +34,7 @@ import {
   zoom,
   setBackgroundImage,
   serialize,
+  textAlignFn,
 } from "../Canvas";
 import ImageUploadButton from "./AddImage";
 
@@ -159,7 +160,7 @@ const MenuBar = () => {
     if (zoomValue <= 1) return;
     setZoomValue((prev) => prev - 1);
   };
-  const handleDownload = () => {};
+
   return (
     <>
       <MenuBarStyle>
@@ -257,10 +258,23 @@ const MenuBar = () => {
             <div className="action-bar">
               <LeftAlign
                 // style={{ background: "pink" }}
-                onClick={() => setTextAlign("left")}
+                onClick={() => {
+                  dispatch(textAlignFn("left"));
+                  setTextAlign("left");
+                }}
               />
-              <CenterAlign onClick={() => setTextAlign("center")} />
-              <RightAlign onClick={() => setTextAlign("right")} />
+              <CenterAlign
+                onClick={() => {
+                  dispatch(textAlignFn("center"));
+                  setTextAlign("center");
+                }}
+              />
+              <RightAlign
+                onClick={() => {
+                  dispatch(textAlignFn("right"));
+                  setTextAlign("right");
+                }}
+              />
             </div>
           </RenderIf>
           <span

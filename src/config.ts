@@ -11,7 +11,7 @@ const staging = {
 const queryArgs = {
   searchParams: "",
   pageNumber: 1,
-  pageSize: 8,
+  pageSize: 100,
 };
 
 export default {
