@@ -176,11 +176,12 @@ export default function Home() {
     handleCloseModal();
     router(`/template/${path}?width=1080&height=1080`);
   });
-  const handleCreate = () => {
+  const handleCreate = (template: string) => {
     const tempName = generateName();
     mutate({
       title: tempName,
       media_hash: JSON.stringify({}),
+      template_type: template,
     });
   };
   return (
@@ -208,7 +209,7 @@ export default function Home() {
                   key={Icon.label}
                   iconText={Icon.Icon}
                   label={Icon.label}
-                  onClick={handleCreate}
+                  onClick={() => handleCreate(Icon.name)}
                 />
               ))}
             </RenderIf>
