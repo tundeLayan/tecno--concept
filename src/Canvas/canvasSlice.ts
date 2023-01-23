@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fabric } from "fabric";
+import FontFaceObserver from "fontfaceobserver";
 
 export type CanvasState = {
   canvasId: string;
@@ -214,8 +215,8 @@ const canvasSlice = createSlice({
     },
     textAlignFn: (state, { payload }: PayloadAction<string>) => {
       const { fabric: canvas } = getCanvas(state.canvasId);
-      // console.log("clicked");
-      // canvas.getActiveObject()?.set("textAlign", payload);
+      canvas.getActiveObject()?.setOptions({ textAlign: payload });
+      canvas.requestRenderAll();
     },
     setFontSize: (state, { payload }) => {
       const { fabric: canvas } = getCanvas(state.canvasId);
@@ -224,7 +225,18 @@ const canvasSlice = createSlice({
     },
     setFontFamily: (state, { payload }) => {
       const { fabric: canvas } = getCanvas(state.canvasId);
-      canvas.getActiveObject()?.set("fontFamily");
+      canvas.getActiveObject()?.setOptions({ fontFamily: payload });
+      let myfont = new FontFaceObserver(payload);
+      myfont
+        .load()
+        .then(() => {
+          canvas.getActiveObject()?.setOptions({ fontFamily: payload });
+          canvas.requestRenderAll();
+        })
+        .catch(function (e) {
+          console.log(e);
+          alert("font loading failed " + payload.fontFamily);
+        });
     },
     setToBold: () => {},
     setToItalic: () => {},

@@ -6,3 +6,45 @@
 .montserrat {
   font-family: "Montserrat", sans-serif;
 }
+
+@font-face {
+  font-family: Garamond-italic;
+  src: url(../assets/fonts/EBGaramond-Italic-VariableFont_wght.ttf);
+}
+@font-face {
+  font-family: Garamond;
+  src: url(../assets/fonts/EBGaramond-VariableFont_wght.ttf);
+}
+@font-face {
+  font-family: Pacifico;
+  src: url(../assets/fonts/Pacifico-Regular.ttf);
+}
+@font-face {
+  font-family: Quicksand;
+  src: url(../assets/fonts/Quicksand-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: Boldscope;
+  src: url(../assets/fonts/Boldscope.otf);
+}
+@font-face {
+  font-family: Tyco;
+  src: url(../assets/fonts/tycho.ttf);
+}
+@font-face {
+  font-family: Chlorinar;
+  src: url(../assets/fonts/CHLORINR.TTF);
+}
+@font-face {
+  font-family: Breadforest;
+  src: url(../assets/fonts/BreadForest.otf);
+}
+@font-face {
+  font-family: Gallero;
+  src: url(../assets/fonts/GalleroVintage.otf);
+}
+@font-face {
+  font-family: Soulty;
+  src: url(../assets/fonts/TheSoultyDemo.ttf);
+}

@@ -42,13 +42,15 @@ import {
 import ImageUploadButton from "./AddImage";
 
 const fonts: Array<{ label: string; value: string }> = [
-  { label: "Aero", value: "Aero" },
-  { label: "Arial", value: "Arial" },
-  { label: "Futura", value: "Futura" },
   { label: "Garamond", value: "Garamond" },
-  { label: "Montserrat", value: "Montserrat" },
-  { label: "Silka", value: "Silka" },
-  { label: "Times New Roman", value: "Times New Roman" },
+  { label: "Pacifico", value: "Pacifico" },
+  { label: "Quicksand", value: "Quicksand" },
+  { label: "Boldscope", value: "Boldscope" },
+  { label: "Tyco", value: "Tyco" },
+  { label: "Chlorinar", value: "Chlorinar" },
+  { label: "Breadforest", value: "Breadforest" },
+  { label: "Gallero", value: "Gallero" },
+  { label: "Soulty", value: "Soulty" },
 ];
 
 const fontSizes: Array<{ label: number; value: number }> = [
