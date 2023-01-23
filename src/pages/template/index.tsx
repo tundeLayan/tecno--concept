@@ -183,7 +183,12 @@ const Template = () => {
 
   useEffect(() => {
     // if empty and there is template type in the url, render template
-    if (data && isEmptyObject(parseToJson(data?.data?.media_hash))) {
+    if (
+      data &&
+      isEmptyObject(
+        parseToJson(data?.data?.media_hash) && !!data?.data?.template_type
+      )
+    ) {
       dispatch(
         deserialize({
           data: JSON.stringify(
