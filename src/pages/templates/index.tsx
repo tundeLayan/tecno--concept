@@ -116,7 +116,7 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
         >
           <Card
             label="Launch Ad"
-            iconText={<img src={Template1} alt="" />}
+            iconText={<img src={Template1} width={"100%"} alt="" />}
             onClick={handleCreate}
           />
           <Card
@@ -171,7 +171,8 @@ export default function Home() {
   };
   return (
     <>
-      <Container>
+      {/* {console.log("!data", !data)} */}
+      <Container isEmpty={!data}>
         <RenderIf condition={showModal}>
           <TemplatesModal {...{ showModal, handleCloseModal }} />
         </RenderIf>
@@ -204,7 +205,6 @@ export default function Home() {
             </RenderIf>
           </div>
         </div>
-        {/* {console.log("data", data?.data?.data)} */}
         <div className="bottom">
           <h1>Recent Designs</h1>
 
@@ -221,13 +221,9 @@ export default function Home() {
                 />
               ))
             ) : (
-              // <>
-              //   <CardV2 icon={RecentDesign1} />
-              //   <CardV2 icon={RecentDesign2} />
-              //   <CardV2 icon={RecentDesign3} />
-              //   <CardV2 icon={RecentDesign4} />
-              // </>
-              <EmptyRecentDesigns />
+              <div className="bottom__emptydesign">
+                <EmptyRecentDesigns />
+              </div>
             )}
           </div>
         </div>

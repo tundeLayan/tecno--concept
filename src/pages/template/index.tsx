@@ -26,6 +26,7 @@ import queries from "../../services/queries/templates";
 import { template1 } from "../../Templates/template1";
 import { template2 } from "../../Templates/template2";
 import { template3 } from "../../Templates/template3";
+import { Button } from "../../components/styles/Button";
 // import {
 //   ObjectTypes,
 //   openContextMenu,
@@ -97,14 +98,14 @@ const Template = () => {
   const debouncedSearch = useCallback(debounce(mutate, 1500), []);
 
   function handleSubmit() {
-    console.log("data", data);
     let dataObj = {
-      title: searchParams.get("name") || "",
+      title: data?.data?.title || "",
       media_hash: JSON.stringify({ objects: canvas?.toJSON().objects }),
       _method: "PUT",
       // background: canvas.toJSON()?.background
     };
-    mutate(dataObj, params?.id || "");
+    console.log("canvas?.toJSON().objects", canvas?.toJSON().objects);
+    // mutate(dataObj, params?.id || "");
   }
   useLayoutEffect(() => {
     // TODO: if not new template, load from canvas
@@ -189,7 +190,7 @@ const Template = () => {
         <canvas id="canvas2">canvas</canvas>
       </div>
       <div style={{ width: "10%", margin: "auto" }}>
-        <button onClick={handleSubmit}>Submit</button>
+        <Button onClick={handleSubmit}>Submit</Button>
       </div>
 
       <MenuBar />

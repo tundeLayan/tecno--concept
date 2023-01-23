@@ -1,5 +1,11 @@
 /* eslint-disable react/jsx-wrap-multilines */
-import React, { useState, useRef, ReactNode, useCallback } from "react";
+import React, {
+  useState,
+  useRef,
+  ReactNode,
+  useCallback,
+  useContext,
+} from "react";
 
 import {
   useNavigate,
@@ -31,6 +37,7 @@ import { getLocalStorage, clearLocalStorage } from "../../services/helper";
 import config from "../../config";
 import RenderIf from "../../utils";
 import queries from "../../services/queries/templates";
+import { CanvasCTX } from "../../Canvas";
 interface IProps {
   variant: 1 | 2;
 }
@@ -226,6 +233,7 @@ const NavbarComp = ({ variant }: IProps) => {
   // const params = useParams();
   const token = getLocalStorage(config.tokenKey);
   const params = useParams();
+  const { canvas } = useContext(CanvasCTX);
 
   const [openShareModal, setOpenShareModal] = useState(false);
   const { isLoading, data } = queries.readOne(params.id);
@@ -260,9 +268,14 @@ const NavbarComp = ({ variant }: IProps) => {
             className="canvas-title"
             contentEditable
             onInput={(e) => {
-              console.log("Text inside div", e.currentTarget.textContent);
               debouncedSearch(
-                { title: e.currentTarget.textContent },
+                {
+                  title: e.currentTarget.textContent,
+                  media_hash: JSON.stringify({
+                    objects: canvas?.toJSON().objects,
+                  }),
+                  _method: "PUT",
+                },
                 params.id || ""
               );
             }}

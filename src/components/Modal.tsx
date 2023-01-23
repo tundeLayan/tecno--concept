@@ -32,7 +32,7 @@ const Modal = ({
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: "rgba(255,255,255,.6)",
+            backgroundColor: "rgba(0,0,0,0.8)",
             zIndex: 10000,
           },
           content: {

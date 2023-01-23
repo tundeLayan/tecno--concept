@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Container = styled.main`
+const Container = styled.main<any>`
   display: flex;
   flex-direction: column;
   height: calc(100vh - 4.8813rem);
@@ -95,13 +95,21 @@ const Container = styled.main`
     }
     &__recent-designs {
       display: flex;
-      justify-content: space-between;
-      gap: 2rem;
+      /* justify-content: space-between; */
+      /* place-items: center; */
+      gap: 4rem;
       flex-wrap: wrap;
-      /* grid-template-columns: repeat(4, minmax(23%, 23%)); */
+      /* grid-template-columns: ${(props) =>
+        props.isEmpty
+          ? "repeat(4, minmax(100%, 100%))"
+          : "repeat(4, minmax(20%, 100%))"}; */
       .card-v2-container {
         flex: 0 0 20%;
       }
+    }
+    &__emptydesign {
+      /* border: 1px solid; */
+      width: 100%;
     }
   }
   @media screen and (max-width: 900px) {
