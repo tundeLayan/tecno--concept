@@ -122,7 +122,7 @@ const Template = () => {
       width: canvRef.current?.offsetWidth,
       fireRightClick: true,
       fireMiddleClick: true,
-      stopContextMenu: true,
+      // stopContextMenu: true,
       backgroundColor: "white",
       backgroundImage: undefined,
       preserveObjectStacking: true,
@@ -173,6 +173,21 @@ const Template = () => {
     canvas.on("object:modified", function (event) {
       // handleSubmit();
     });
+    var isTouching = false;
+    canvas.on("mouse:down", function (e) {
+      console.log("touchstart");
+      isTouching = true;
+    });
+    canvas.on("touch:longpress", function (e) {
+      if (isTouching) {
+        // Some Code
+        console.log("longpress");
+      }
+    });
+    canvas.on("mouse:up", function (e) {
+      console.log("touchend");
+      isTouching = false;
+    });
 
     setCanvas(canvas);
     // @ts-ignore
@@ -186,12 +201,15 @@ const Template = () => {
     if (
       data &&
       isEmptyObject(parseToJson(data?.data?.media_hash)) &&
-      !!data?.data?.template_type
+      !!data?.data?.template_type &&
+      ["template1", "template2", "template3"].includes(
+        data?.data?.template_type
+      )
     ) {
       dispatch(
         deserialize({
           data: JSON.stringify(
-            data?.data?.template_type && Icons[data?.data?.template_type].icon
+            data?.data?.template_type && Icons[data?.data?.template_type]?.icon
           ),
         })
       );
