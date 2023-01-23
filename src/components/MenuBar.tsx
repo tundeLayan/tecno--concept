@@ -17,6 +17,7 @@ import {
   Italize,
   Bold,
   Underline,
+  Download,
 } from "./svgs";
 import RenderIf from "../utils";
 import { RootState } from "../redux/store";
@@ -35,6 +36,8 @@ import {
   setBackgroundImage,
   serialize,
   textAlignFn,
+  moveObjectFoward,
+  moveObjectBackward,
 } from "../Canvas";
 import ImageUploadButton from "./AddImage";
 
@@ -446,14 +449,28 @@ const MenuBar = () => {
           <ZoomInIcon />
         </DarkButton>
         <DarkButton textSize="md" onClick={() => download()} variant={2}>
-          Download
+          <Download />
         </DarkButton>
         <DarkButton
           textSize="md"
           onClick={() => dispatch(setBackgroundImage())}
           variant={2}
         >
-          Set background
+          Set BG
+        </DarkButton>
+        <DarkButton
+          textSize="md"
+          onClick={() => dispatch(moveObjectFoward())}
+          variant={2}
+        >
+          Front
+        </DarkButton>
+        <DarkButton
+          textSize="md"
+          onClick={() => dispatch(moveObjectBackward())}
+          variant={2}
+        >
+          Back
         </DarkButton>
       </MenuBarStyleMobile>
     </>

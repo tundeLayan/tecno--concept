@@ -29,6 +29,7 @@ import { ReactComponent as Italize } from "./italize_icon.svg";
 import { ReactComponent as Bold } from "./bold_icon.svg";
 import { ReactComponent as Underline } from "./underline_icon.svg";
 import { ReactComponent as EmptyState } from "./empty_state.svg";
+import { ReactComponent as Download } from "./download.svg";
 
 import RecentDesign1 from "../../assets/images/recent_design1.png";
 import RecentDesign2 from "../../assets/images/recent_design2.png";
@@ -47,6 +48,7 @@ import Template2 from "../../assets/images/template2.jpeg";
 import Template3 from "../../assets/images/template3.jpeg";
 
 export {
+  Download,
   AuthFacebookLogo,
   SaveIcon,
   FacebookLogo,
