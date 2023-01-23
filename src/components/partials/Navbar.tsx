@@ -224,11 +224,12 @@ const NavbarComp = ({ variant }: IProps) => {
   const { canvas } = useContext(CanvasCTX);
 
   const [openShareModal, setOpenShareModal] = useState(false);
-  const { isLoading, data } = queries.readOne(params.id);
-  const { mutate } = queries.update();
+  const { data } = queries.readOne(params.id);
+  const { mutate, isLoading } = queries.update();
 
   const debouncedSearch = useCallback(debounce(mutate, 1500), []);
 
+  console.log("data", data);
   function handleSubmit() {
     let dataObj = {
       title: data?.data?.title || "",
@@ -288,7 +289,15 @@ const NavbarComp = ({ variant }: IProps) => {
             </span>
             <span>
               <span className="desktop-share">
-                <FilledButton onClick={handleSubmit}>Save</FilledButton>
+                <FilledButton onClick={handleSubmit}>
+                  {isLoading ? (
+                    <div className="simple-spinner">
+                      <span></span>
+                    </div>
+                  ) : (
+                    "Save"
+                  )}
+                </FilledButton>
               </span>
               <span className="mobile-share">
                 <SaveIcon onClick={handleSubmit} />
