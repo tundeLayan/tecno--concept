@@ -1,13 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import jwt_decode from "jwt-decode";
 
-import {
-  useNavigate,
-  NavigateFunction,
-  useLocation,
-  Location,
-  useParams,
-} from "react-router-dom";
+import { useNavigate, NavigateFunction } from "react-router-dom";
 
 import config from "../../../config";
 // import routes from '../../../routes';
@@ -25,8 +19,6 @@ const BASE_URL = "/auth/google/authorize";
 // login
 const read = (url = BASE_URL, options = {}) => {
   const router: NavigateFunction = useNavigate();
-  const path: Location = useLocation();
-  const param = useParams();
 
   const { mutate, isLoading, data, isSuccess } = useMutation(api.post, {
     mutationKey: [queryKey.read],

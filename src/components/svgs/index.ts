@@ -7,6 +7,7 @@ import { ReactComponent as Twitter } from "./twitter_logo.svg";
 import { ReactComponent as Instagram } from "./instagram_logo.svg";
 import { ReactComponent as Linkedin } from "./linkedin_logo.svg";
 import { ReactComponent as GoogleLogo } from "./google_logo.svg";
+import { ReactComponent as AuthFacebookLogo } from "./auth_facebook_logo.svg";
 
 import { ReactComponent as FacebookShare } from "./facebook_share.svg";
 import { ReactComponent as TwitterShare } from "./twitter_share.svg";
@@ -22,6 +23,7 @@ import { ReactComponent as ShareIcon } from "./share_icon.svg";
 import { ReactComponent as RightAlign } from "./right_align.svg";
 import { ReactComponent as LeftAlign } from "./left_align.svg";
 import { ReactComponent as CenterAlign } from "./center_align.svg";
+import { ReactComponent as SaveIcon } from "./save_icon.svg";
 
 import { ReactComponent as Italize } from "./italize_icon.svg";
 import { ReactComponent as Bold } from "./bold_icon.svg";
@@ -34,18 +36,26 @@ import RecentDesign3 from "../../assets/images/recent_design3.png";
 import RecentDesign4 from "../../assets/images/recent_design4.png";
 import LandingImage from "../../assets/images/landing_image.png";
 import TemplateCard from "../../assets/images/template_card.png";
-import Template1 from "../../assets/images/template1.png";
+// import Template1 from "../../assets/images/template1.png";
 import FacebookLogo from "../../assets/images/facebook_logo.png";
 import InstagramLogo from "../../assets/images/instagram_logo.png";
 import LinkedInLogo from "../../assets/images/linkedin_logo.png";
 import TwitterLogo from "../../assets/images/twitter_logo.png";
 
+import Template1 from "../../assets/images/template1.jpeg";
+import Template2 from "../../assets/images/template2.jpeg";
+import Template3 from "../../assets/images/template3.jpeg";
+
 export {
+  AuthFacebookLogo,
+  SaveIcon,
   FacebookLogo,
   InstagramLogo,
   LinkedInLogo,
   TwitterLogo,
   Template1,
+  Template2,
+  Template3,
   EmptyState,
   TemplateCard,
   Italize,

@@ -9,6 +9,7 @@ import { MainContainer } from "../components/styles/Auth/Body";
 import logo from "../assets/images/logo.png";
 import { getLocalStorage } from "../services/helper";
 import config from "../config";
+import { useModals } from "../contexts/Modal";
 
 interface IProps {
   children: ReactNode;
@@ -16,6 +17,7 @@ interface IProps {
 const Auth = (props: IProps) => {
   const { children } = props;
   const router: NavigateFunction = useNavigate();
+  const { handleOpenModal } = useModals();
 
   useEffect(() => {
     if (getLocalStorage(config.tokenKey) !== null) {
@@ -30,7 +32,7 @@ const Auth = (props: IProps) => {
           <img width={80} height={15} alt="" src={logo} />
           <p>Recreate</p>
         </Logo>
-        <Button>Login here</Button>
+        <Button onClick={handleOpenModal}>Login here</Button>
       </Navbar>
       <MainContainer>{children}</MainContainer>
     </div>

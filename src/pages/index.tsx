@@ -17,6 +17,7 @@ import { FilledButton, GoogleAuthButton } from "../components/styles/Button";
 import {
   LandingImage /* , RightAngle, LeftAngle, LandingImage */,
   GoogleLogo,
+  AuthFacebookLogo,
 } from "../components/svgs";
 import Modal from "../components/Modal";
 import { useModals } from "../contexts/Modal";
@@ -71,7 +72,7 @@ const FaceBookBtn = ({ handleCloseModal }: Partial<IProps>) => {
       // fields="name,email,picture"
       render={(renderProps) => (
         <GoogleAuthButton onClick={renderProps.onClick}>
-          <GoogleLogo /> Login with facebook
+          <AuthFacebookLogo /> Login with facebook
         </GoogleAuthButton>
       )}
     />
@@ -89,13 +90,13 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
         <div className="container">
           <GoogleBtn {...{ handleCloseModal }} />
           <FaceBookBtn {...{ handleCloseModal }} />
-          <p className="sign-up">
+          {/* <p className="sign-up">
             No account? <Link to="/">Sign Up</Link>
           </p>
           <p className="privacy">
             By continuing, you agree to the Terms of use, and Privacy Policy of
             double.
-          </p>
+          </p> */}
           <style>
             {`
             .modal-header{

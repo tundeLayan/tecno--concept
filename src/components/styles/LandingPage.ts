@@ -124,6 +124,12 @@ const ModalContainer = styled.div`
       line-height: 16px;
       color: rgba(0, 0, 0, 0.56);
     }
+    @media screen and (max-width: 900px) {
+      width: 100% !important;
+    }
+  }
+  @media screen and (max-width: 900px) {
+    width: 100% !important;
   }
 `;
 

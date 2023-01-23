@@ -9,8 +9,6 @@ import {
   animals,
 } from "unique-names-generator";
 
-import { v4 as uuidv4 } from "uuid";
-
 import { Container } from "../../components/styles/Templates";
 import { Card, CardV2 } from "../../components/Cards";
 import {
@@ -25,6 +23,8 @@ import {
   TemplateCard,
   EmptyState,
   Template1,
+  Template2,
+  Template3,
   FacebookLogo,
   InstagramLogo,
   LinkedInLogo,
@@ -38,6 +38,7 @@ import { getLocalStorage } from "../../services/helper";
 import config from "../../config";
 import { FilledButton } from "../../components/styles/Button";
 import { EmptyContainer } from "../../components/styles/EmptyRecentDesigns";
+import { template2 } from "../../Templates/template2";
 
 const Icons = [
   {
@@ -81,24 +82,27 @@ const generateName = () => {
 
 const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
   const router = useNavigate();
+
   const { mutate, isLoading, data, isSuccess } = queries.create(
     (path, name) => {
       handleCloseModal();
-      router(`/template/${path}?name=${name}&width=1080&height=1080`);
+      router(`/template/${path}?width=1080&height=1080`);
     }
   );
   const theme: DefaultTheme = useTheme();
-  const handleCreate = () => {
+  const handleCreate = (template: string) => {
     const tempName = generateName();
     mutate({
       title: tempName,
       media_hash: JSON.stringify({}),
+      template_type: template,
     });
   };
 
   return (
     <Modal
-      width="75%"
+      className="modal-main"
+      // width="75%"
       isOpen={showModal}
       contentLabel=""
       onRequestClose={handleCloseModal}
@@ -108,6 +112,7 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
         <br />
         <br />
         <div
+          className="modal-child-container"
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -115,19 +120,19 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
           }}
         >
           <Card
-            label="Launch Ad"
+            label="Template 1"
             iconText={<img src={Template1} width={"100%"} alt="" />}
-            onClick={handleCreate}
+            onClick={() => handleCreate("template1")}
           />
           <Card
-            label="Phone Launch"
-            onClick={handleCreate}
-            iconText={<img src={Template1} alt="" />}
+            label="Template 2"
+            onClick={() => handleCreate("template2")}
+            iconText={<img src={Template2} width={"100%"} alt="" />}
           />
           <Card
-            label="Engagement Ad"
-            onClick={handleCreate}
-            iconText={<img src={Template1} alt="" />}
+            label="Template 3"
+            onClick={() => handleCreate("template3")}
+            iconText={<img src={Template3} width={"100%"} alt="" />}
           />
         </div>
       </>
@@ -135,6 +140,15 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
         {`
           .modal-header{
             color: ${theme.colors.text.secondary};
+          }
+          .modal-child-container{
+            width: 100%;
+            flex-wrap: wrap;
+            
+          }
+          .modal-child-container > div{
+              width: 50% !important;
+            }
           }
         `}
       </style>

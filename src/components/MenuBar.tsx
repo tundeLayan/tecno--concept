@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CirclePicker } from "react-color";
 import Select from "react-dropdown-select";
 
-import { MenuBarStyle } from "./styles/MenuBar";
+import { MenuBarStyle, MenuBarStyleMobile } from "./styles/MenuBar";
 import { DarkButton } from "./styles/Button";
 import {
   AddImageIcon,
@@ -73,8 +73,8 @@ const colorList: Array<string> = [
   "#03a9f4",
   "#00bcd4",
   "#009688",
-  "#4caf50",
-  "#8bc34a",
+  // "#4caf50",
+  // "#8bc34a",
   // "#cddc39",
   // "#ffeb3b",
   // "#ffc107",
@@ -164,6 +164,7 @@ const MenuBar = () => {
 
   return (
     <>
+      {/* desktop */}
       <MenuBarStyle>
         {/* upload image */}
         <ImageUploadButton />
@@ -308,14 +309,153 @@ const MenuBar = () => {
         >
           Set background
         </DarkButton>
+      </MenuBarStyle>
+      {/* mobile */}
+      <MenuBarStyleMobile>
+        {/* upload image */}
+        <ImageUploadButton />
+        {/* add text */}
+        <DarkButton textSize="md" onClick={() => handleAddText()} variant={1}>
+          Add Text <AddTextIcon />
+        </DarkButton>
+        <hr />
+        {/* fonts(family, size, bold, italize) */}
+        <DarkButton textSize="md" variant={2}>
+          <RenderIf condition={showFonts}>
+            <div className="fonts-action-bar">
+              <span className="font-family">
+                <Select
+                  options={fonts}
+                  values={[]}
+                  onChange={(value) => dispatch(setFontFamily(value[0].value))}
+                  style={{ width: "100%" }}
+                  dropdownPosition="top"
+                />
+              </span>
+              <span className="font-size">
+                <Select
+                  options={fontSizes}
+                  values={[]}
+                  onChange={(value) => {
+                    setSelectedFontSize(value[0].value);
+                    dispatch(setFontSize(value[0].value));
+                  }}
+                  style={{ width: "100%" }}
+                  dropdownPosition="top"
+                />
+              </span>
+              <span
+                onClick={() => {
+                  setIsBold((prev) => !prev);
+                  dispatch(setToBold());
+                }}
+              >
+                <Bold width={15} height={15} />
+              </span>
+              <span
+                onClick={() => {
+                  setIsItalized((prev) => !prev);
+                  dispatch(setToItalic());
+                }}
+              >
+                <Italize width={15} height={15} />
+              </span>
+              <span
+                onClick={() => {
+                  setIsUnderlined((prev) => !prev);
+                  dispatch(underlineText());
+                }}
+              >
+                <Underline width={15} height={15} />
+              </span>
+            </div>
+          </RenderIf>
+
+          <span role="none" onClick={handleFont}>
+            T
+          </span>
+        </DarkButton>
+        {/* color palette */}
+        <DarkButton textSize="md" onClick={() => handleColor()} variant={2}>
+          <RenderIf condition={showColorPallete}>
+            <div className="color-action-bar">
+              <CirclePicker
+                color={selectedColor}
+                onChangeComplete={(color) => {
+                  setSelectedColor(color.hex);
+                  dispatch(changeTextColor(color.hex));
+                }}
+                width="400px"
+                colors={colorList}
+              />
+            </div>
+          </RenderIf>
+
+          <div
+            style={{
+              height: "20px",
+              width: "20px",
+              borderRadius: "50%",
+              background: `${selectedColor}`,
+            }}
+          ></div>
+        </DarkButton>
+        {/* Text Align */}
+        <DarkButton textSize="md" onClick={() => handleTextAlign()} variant={2}>
+          <RenderIf condition={showTextAlign && activeMenu === "textAlign"}>
+            <div className="action-bar">
+              <LeftAlign
+                // style={{ background: "pink" }}
+                onClick={() => {
+                  dispatch(textAlignFn("left"));
+                  setTextAlign("left");
+                }}
+              />
+              <CenterAlign
+                onClick={() => {
+                  dispatch(textAlignFn("center"));
+                  setTextAlign("center");
+                }}
+              />
+              <RightAlign
+                onClick={() => {
+                  dispatch(textAlignFn("right"));
+                  setTextAlign("right");
+                }}
+              />
+            </div>
+          </RenderIf>
+          <span
+            role="none"
+            onClick={() => {
+              setActiveMenu("textAlign");
+              setShowTextAlign((prev) => !prev);
+            }}
+          >
+            Align
+          </span>
+        </DarkButton>
         <DarkButton
           textSize="md"
-          onClick={() => dispatch(serialize())}
+          onClick={() => handleAddZoomOut()}
           variant={2}
         >
-          Serialize
+          <ZoomOutIcon />
         </DarkButton>
-      </MenuBarStyle>
+        <DarkButton textSize="md" onClick={() => handleAddZoomIn()} variant={2}>
+          <ZoomInIcon />
+        </DarkButton>
+        <DarkButton textSize="md" onClick={() => download()} variant={2}>
+          Download
+        </DarkButton>
+        <DarkButton
+          textSize="md"
+          onClick={() => dispatch(setBackgroundImage())}
+          variant={2}
+        >
+          Set background
+        </DarkButton>
+      </MenuBarStyleMobile>
     </>
   );
 };

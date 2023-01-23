@@ -41,6 +41,12 @@ const parseToJson = (str: string) => {
   }
 };
 
+const Icons: any = {
+  template1: { icon: template1 },
+  template2: { icon: template2 },
+  template3: { icon: template3 },
+};
+
 // All things for the canvas will be added here
 const Template = () => {
   const [searchParams] = useSearchParams();
@@ -102,10 +108,11 @@ const Template = () => {
       title: data?.data?.title || "",
       media_hash: JSON.stringify({ objects: canvas?.toJSON().objects }),
       _method: "PUT",
+      template_type: data?.data?.template_type,
       // background: canvas.toJSON()?.background
     };
-    console.log("canvas?.toJSON().objects", canvas?.toJSON().objects);
-    // mutate(dataObj, params?.id || "");
+    // console.log("canvas?.toJSON().objects", canvas?.toJSON().objects);
+    mutate(dataObj, params?.id || "");
   }
   useLayoutEffect(() => {
     // TODO: if not new template, load from canvas
@@ -175,24 +182,28 @@ const Template = () => {
   }, []);
 
   useEffect(() => {
-    if (data && !isEmptyObject(parseToJson(data?.data?.media_hash))) {
+    // if empty and there is template type in the url, render template
+    if (data && isEmptyObject(parseToJson(data?.data?.media_hash))) {
+      dispatch(
+        deserialize({
+          data: JSON.stringify(
+            data?.data?.template_type && Icons[data?.data?.template_type].icon
+          ),
+        })
+      );
+    } else if (data && !isEmptyObject(parseToJson(data?.data?.media_hash))) {
       dispatch(deserialize({ data: data?.data?.media_hash }));
-      // dispatch(deserialize({ data: JSON.stringify(template1) }));
     }
     return () => {};
   }, [data]);
 
   // if (dimensions.height === null || dimensions.width === null) return null;
-
+  // console.log("template1", template1);
   return (
     <TemplateContainer>
       <div ref={canvRef} className="canvas-container" id="canvas-wrap">
         <canvas id="canvas2">canvas</canvas>
       </div>
-      <div style={{ width: "10%", margin: "auto" }}>
-        <Button onClick={handleSubmit}>Submit</Button>
-      </div>
-
       <MenuBar />
     </TemplateContainer>
   );

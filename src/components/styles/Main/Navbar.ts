@@ -44,6 +44,25 @@ const NavbarV2 = styled.header`
   .mobile-share {
     display: none;
   }
+  .share-container {
+    position: relative;
+    .share-child-container {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 1.5rem;
+      position: absolute;
+      background: white;
+      padding: 1rem;
+      left: -25%;
+      top: 120%;
+      border-radius: 10px;
+      @media screen and (max-width: 900px) {
+        left: -700%;
+        z-index: 100;
+      }
+    }
+  }
   @media screen and (max-width: 900px) {
     padding: ${(props) =>
       `${props.theme.space[2]} ${props.theme.space[3]} !important`};

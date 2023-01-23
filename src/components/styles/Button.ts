@@ -24,6 +24,7 @@ const Button = styled.button.attrs(() => ({
   align-items: center;
   justify-content: space-between;
   gap: 5px;
+  width: fit-content;
   /* display: inline-block; */
   :hover {
     cursor: pointer;
@@ -48,6 +49,9 @@ const GoogleAuthButton = styled(Button)`
   color: ${(props) => props.theme.colors.text.secondary};
   padding: ${(props) => props.theme.space[2]} ${(props) => props.theme.space[5]};
   width: 53%;
+  @media screen and (max-width: 900px) {
+    width: 79% !important;
+  }
 `;
 
 const DarkButton = styled(Button)<IDarkButton>`
@@ -110,6 +114,15 @@ const DarkButton = styled(Button)<IDarkButton>`
       opacity: 1;
       /* } */
     }
+    @media screen and (max-width: 900px) {
+      gap: ${(props) => props.theme.space[1]};
+      padding: 0.5rem;
+    }
+  }
+  .color-action-bar {
+    @media screen and (max-width: 900px) {
+      left: -120%;
+    }
   }
   .fonts-action-bar {
     display: flex;
@@ -125,10 +138,10 @@ const DarkButton = styled(Button)<IDarkButton>`
       }
     }
     .font-family {
-      width: 150px;
+      width: 100px;
     }
     .font-size {
-      width: 120px;
+      width: 100px;
     }
   }
   .list {

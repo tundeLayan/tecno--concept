@@ -24,7 +24,7 @@ const TemplateContainer = styled.div`
       align-items: center;
       width: 90%;
       .canvas {
-        width: 95%;
+        width: 100%;
         margin: 0;
       }
     }

@@ -23,7 +23,7 @@ import { googleLogout } from "@react-oauth/google";
 import debounce from "lodash.debounce";
 
 import { Logo, Navbar, NavbarV2 } from "../styles/Main/Navbar";
-import { InverseButton, DarkButton } from "../styles/Button";
+import { InverseButton, DarkButton, FilledButton } from "../styles/Button";
 import {
   BackArrow,
   FacebookShare,
@@ -31,6 +31,7 @@ import {
   InstagramShare,
   LinkedinShare,
   ShareIcon,
+  SaveIcon,
 } from "../svgs";
 import logo from "../../assets/images/logo.png";
 import { getLocalStorage, clearLocalStorage } from "../../services/helper";
@@ -53,20 +54,7 @@ const logout = (successCallback = () => {}) => {
 
 const SocialShare = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        flexDirection: "column",
-        gap: "1.5rem",
-        position: "absolute",
-        background: "white",
-        padding: "1rem",
-        left: "-25%",
-        top: "120%",
-        borderRadius: "10px",
-      }}
-    >
+    <div className="share-child-container" style={{}}>
       <div
         style={{
           display: "flex",
@@ -241,6 +229,16 @@ const NavbarComp = ({ variant }: IProps) => {
 
   const debouncedSearch = useCallback(debounce(mutate, 1500), []);
 
+  function handleSubmit() {
+    let dataObj = {
+      title: data?.data?.title || "",
+      media_hash: JSON.stringify({ objects: canvas?.toJSON().objects }),
+      _method: "PUT",
+      template_type: data?.data?.template_type,
+    };
+    mutate(dataObj, params?.id || "");
+  }
+
   return (
     <div>
       {variant === 1 ? (
@@ -275,6 +273,7 @@ const NavbarComp = ({ variant }: IProps) => {
                     objects: canvas?.toJSON().objects,
                   }),
                   _method: "PUT",
+                  template_type: data?.data?.template_type,
                 },
                 params.id || ""
               );
@@ -287,8 +286,16 @@ const NavbarComp = ({ variant }: IProps) => {
               {token.first_name[0]}
               {token.last_name[0]}
             </span>
+            <span>
+              <span className="desktop-share">
+                <FilledButton onClick={handleSubmit}>Save</FilledButton>
+              </span>
+              <span className="mobile-share">
+                <SaveIcon onClick={handleSubmit} />
+              </span>
+            </span>
 
-            <span style={{ position: "relative" }}>
+            <span className="share-container">
               <span className="desktop-share">
                 <InverseButton
                   onClick={() => setOpenShareModal((prev) => !prev)}

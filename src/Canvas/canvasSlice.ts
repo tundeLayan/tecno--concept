@@ -234,8 +234,8 @@ const canvasSlice = createSlice({
     },
     serialize: (state) => {
       const { fabric: canvas } = getCanvas(state.canvasId);
-      console.log("canvas.toJSON()", canvas.toJSON());
-      console.log("stringify canvas.toJSON()", canvas.toObject());
+      // console.log("canvas.toJSON()", canvas.toJSON());
+      // console.log("stringify canvas.toJSON()", canvas.toObject());
     },
     deserialize: (state, { payload }) => {
       const { fabric: canvas } = getCanvas(state.canvasId);
