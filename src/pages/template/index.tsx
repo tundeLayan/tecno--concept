@@ -185,9 +185,8 @@ const Template = () => {
     // if empty and there is template type in the url, render template
     if (
       data &&
-      isEmptyObject(
-        parseToJson(data?.data?.media_hash) && !!data?.data?.template_type
-      )
+      isEmptyObject(parseToJson(data?.data?.media_hash)) &&
+      !!data?.data?.template_type
     ) {
       dispatch(
         deserialize({

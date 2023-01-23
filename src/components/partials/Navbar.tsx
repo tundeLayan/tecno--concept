@@ -229,7 +229,6 @@ const NavbarComp = ({ variant }: IProps) => {
 
   const debouncedSearch = useCallback(debounce(mutate, 1500), []);
 
-  console.log("data", data);
   function handleSubmit() {
     let dataObj = {
       title: data?.data?.title || "",

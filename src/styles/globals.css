@@ -29,7 +29,7 @@ a {
 }
 
 .Modal {
-  width: 70% !important;
+  width: 50% !important;
 }
 
 @media screen and (max-width: 900px) {

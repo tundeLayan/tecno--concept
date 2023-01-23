@@ -12,6 +12,7 @@ import {
   saveLocalStorage,
   successToast,
 } from "../../helper";
+import { showToast } from "../../../utils/Toast";
 import queryKey from "./keys";
 
 const BASE_URL = "/auth/google/authorize";
@@ -29,14 +30,13 @@ const read = (url = BASE_URL, options = {}) => {
         userData.token = response.data;
 
         saveLocalStorage(userData, config.tokenKey);
-        successToast("Sign in successful");
+        showToast(response?.message || "Login Successful", "success");
         // const route = router.query?.next && router.query.next !== '/' ? String(router.query.next) : routes[role].path;
         setTimeout(() => router("/templates"), 300);
       }
     },
     onError: (err: any) => {
-      console.log(err);
-      // errorToast(handleErrors(err));
+      showToast(handleErrors(err), "error");
     },
   });
   return {

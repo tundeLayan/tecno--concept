@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "styled-components";
-// import { ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { BrowserRouter } from "react-router-dom";
 
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import "nprogress/nprogress.css";
-// import "react-toastify/dist/ReactToastify.min.css";
+import "react-toastify/dist/ReactToastify.min.css";
 
 import "./styles/globals.css";
 import "./styles/fonts.css";
@@ -55,7 +55,7 @@ function App() {
         <BrowserRouter>
           <ModalProvider>
             <ThemeProvider theme={theme}>
-              {/* <ToastContainer /> */}
+              <ToastContainer />
               <Pages />
               {/* <CanvasCTX.Provider
                 value={{

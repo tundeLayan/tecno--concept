@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 
 import config from "../../../config";
+import { showToast } from "../../../utils/Toast";
 // import routes from '../../../routes';
 import api from "../../api";
 import {
@@ -75,8 +76,14 @@ const create = (
     onSuccess: (res) => {
       // console.log("res is", res);
       successCallback(`${res.data.id}`, `${res.data.title}`);
+      showToast(
+        res?.data?.message || `Template ${res.data.title} created successfully`,
+        "success"
+      );
     },
-    onError: (err) => {},
+    onError: (err) => {
+      showToast(handleErrors(err), "error");
+    },
   });
   return {
     mutate: (body: any) => mutate({ url: `${BASE_URL}`, body }),
@@ -93,8 +100,14 @@ const update = (options = {}) => {
     ...options,
     onSuccess: (res) => {
       // console.log("res is", res);
+      showToast(
+        res?.data?.message || `Template ${res.data.title} updated successfully`,
+        "success"
+      );
     },
-    onError: (err) => {},
+    onError: (err) => {
+      showToast(handleErrors(err), "error");
+    },
   });
   return {
     mutate: (body: any, id: string) =>
