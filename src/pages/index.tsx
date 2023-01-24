@@ -89,7 +89,7 @@ const TemplatesModal = ({ showModal, handleCloseModal }: IProps) => {
         <br />
         <div className="container">
           <GoogleBtn {...{ handleCloseModal }} />
-          <FaceBookBtn {...{ handleCloseModal }} />
+          {/* <FaceBookBtn {...{ handleCloseModal }} /> */}
           {/* <p className="sign-up">
             No account? <Link to="/">Sign Up</Link>
           </p>
@@ -118,7 +118,8 @@ const Home = () => {
       <Container>
         <LeftContainer>
           <Header>
-            Create your Idea in <span>seconds</span>
+            Create your Phantom Magazine cover in <span>20 secs</span>
+            {/* Create your Idea in <span>seconds</span> */}
           </Header>
           <Subtitle>
             You can now create, edit and share your ideas in just few seconds.

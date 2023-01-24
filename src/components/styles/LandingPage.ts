@@ -34,9 +34,9 @@ const LeftContainer = styled.div`
 `;
 
 const Header = styled.h1`
-  font-size: ${(props) => props.theme.sizes[3]};
+  font-size: ${(props) => props.theme.fontSizes.h3};
   font-weight: ${(props) => props.theme.fontWeights.bold};
-  line-height: 6.125rem;
+  /* line-height: 6.125rem; */
   color: ${(props) => props.theme.colors.text.secondary};
   span {
     color: ${(props) => props.theme.colors.text.primary} !important;
@@ -50,7 +50,7 @@ const Header = styled.h1`
 
 const Subtitle = styled.p`
   font-weight: ${(props) => props.theme.fontWeights.small};
-  font-size: ${(props) => props.theme.fontSizes.h4};
+  font-size: ${(props) => props.theme.fontSizes.h5};
   line-height: 2.8125rem;
   color: ${(props) => props.theme.colors.text.secondary};
   margin-bottom: ${(props) => props.theme.space[3]};

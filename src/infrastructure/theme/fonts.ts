@@ -4,9 +4,9 @@ interface IFonts {
   monospace: string;
 }
 export const fonts: IFonts = {
-  body: '',
-  heading: '',
-  monospace: '',
+  body: "",
+  heading: "",
+  monospace: "",
 };
 
 interface IFontWeights {
@@ -35,14 +35,14 @@ interface IFontSizes {
   h1: string;
 }
 export const fontSizes: IFontSizes = {
-  caption: '12px',
-  button: '14px',
-  body: '16px',
-  body2: '18px',
-  title: '20px',
-  h5: '24px',
-  h4: '30px',
-  h3: '45px',
-  h2: '56px',
-  h1: '112px',
+  caption: "12px",
+  button: "14px",
+  body: "16px",
+  body2: "18px",
+  title: "20px",
+  h5: "28px",
+  h4: "30px",
+  h3: "45px",
+  h2: "56px",
+  h1: "112px",
 };
