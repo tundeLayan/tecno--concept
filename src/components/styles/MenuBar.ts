@@ -19,7 +19,7 @@ const MenuBarStyle = styled.div`
 const MenuBarStyleMobile = styled.div`
   background-color: ${(props) => props.theme.colors.bg.dark1};
   border-radius: ${(props) => props.theme.sizes[0]};
-  padding: ${(props) => `${props.theme.space[2]}`};
+  padding: 11.2px 4px;
   width: 56%;
   margin: auto;
   display: none;

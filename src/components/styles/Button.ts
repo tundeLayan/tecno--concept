@@ -57,6 +57,35 @@ const Button = styled.button.attrs(() => ({
       transform: rotate(360deg);
     }
   }
+  div {
+    .simple-spinner {
+      width: 20px;
+      height: 20px;
+      position: relative;
+      /* left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); */
+    }
+
+    .simple-spinner span {
+      display: block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid transparent;
+      border-radius: 50%;
+      border-right-color: rgba(255, 255, 255, 0.7);
+      animation: spinner-anim 0.8s linear infinite;
+    }
+
+    @keyframes spinner-anim {
+      from {
+        transform: rotate(0);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
 `;
 
 const FilledButton = styled(Button)`

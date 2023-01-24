@@ -230,6 +230,7 @@ const NavbarComp = ({ variant }: IProps) => {
   const debouncedSearch = useCallback(debounce(mutate, 1500), []);
 
   function handleSubmit() {
+    // console.log("canvas?.toJSON().objects", canvas?.toJSON().objects);
     let dataObj = {
       title: data?.data?.title || "",
       media_hash: JSON.stringify({ objects: canvas?.toJSON().objects }),
@@ -299,7 +300,24 @@ const NavbarComp = ({ variant }: IProps) => {
                 </FilledButton>
               </span>
               <span className="mobile-share">
-                <SaveIcon onClick={handleSubmit} />
+                {isLoading ? (
+                  <div
+                    style={{
+                      border: "1px solid #fff",
+                      height: "20px",
+                      width: "20px",
+                      display: "inline-block",
+                    }}
+                  >
+                    <div className="simple-spinner">
+                      <span></span>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <SaveIcon onClick={handleSubmit} />
+                  </>
+                )}
               </span>
             </span>
 

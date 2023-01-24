@@ -18,6 +18,7 @@ import {
   Bold,
   Underline,
   Download,
+  TrashIcon,
 } from "./svgs";
 import RenderIf from "../utils";
 import { RootState } from "../redux/store";
@@ -38,6 +39,7 @@ import {
   textAlignFn,
   moveObjectFoward,
   moveObjectBackward,
+  deleteSelectedLayer,
 } from "../Canvas";
 import ImageUploadButton from "./AddImage";
 
@@ -437,8 +439,15 @@ const MenuBar = () => {
               setShowTextAlign((prev) => !prev);
             }}
           >
-            Align
+            <LeftAlign />
           </span>
+        </DarkButton>
+        <DarkButton
+          textSize="md"
+          onClick={() => dispatch(deleteSelectedLayer())}
+          variant={2}
+        >
+          <TrashIcon />
         </DarkButton>
         <DarkButton
           textSize="md"

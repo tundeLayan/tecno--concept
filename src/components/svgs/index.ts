@@ -24,6 +24,7 @@ import { ReactComponent as RightAlign } from "./right_align.svg";
 import { ReactComponent as LeftAlign } from "./left_align.svg";
 import { ReactComponent as CenterAlign } from "./center_align.svg";
 import { ReactComponent as SaveIcon } from "./save_icon.svg";
+import { ReactComponent as TrashIcon } from "./trash_icon.svg";
 
 import { ReactComponent as Italize } from "./italize_icon.svg";
 import { ReactComponent as Bold } from "./bold_icon.svg";
@@ -48,6 +49,7 @@ import Template2 from "../../assets/images/template2.jpeg";
 import Template3 from "../../assets/images/template3.jpeg";
 
 export {
+  TrashIcon,
   Download,
   AuthFacebookLogo,
   SaveIcon,

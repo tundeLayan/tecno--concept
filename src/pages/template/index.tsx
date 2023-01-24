@@ -27,6 +27,7 @@ import { template1 } from "../../Templates/template1";
 import { template2 } from "../../Templates/template2";
 import { template3 } from "../../Templates/template3";
 import { Button } from "../../components/styles/Button";
+import { socialTemplate } from "../../Templates/socialTemplate";
 // import {
 //   ObjectTypes,
 //   openContextMenu,
@@ -175,7 +176,7 @@ const Template = () => {
     });
     var isTouching = false;
     canvas.on("mouse:down", function (e) {
-      console.log("touchstart");
+      // console.log("touchstart");
       isTouching = true;
     });
     canvas.on("touch:longpress", function (e) {
@@ -185,7 +186,7 @@ const Template = () => {
       }
     });
     canvas.on("mouse:up", function (e) {
-      console.log("touchend");
+      // console.log("touchend");
       isTouching = false;
     });
 
@@ -215,12 +216,23 @@ const Template = () => {
       );
     } else if (data && !isEmptyObject(parseToJson(data?.data?.media_hash))) {
       dispatch(deserialize({ data: data?.data?.media_hash }));
+    } else if (
+      data &&
+      isEmptyObject(parseToJson(data?.data?.media_hash)) &&
+      !!data?.data?.template_type &&
+      ["facebook", "twitter", "instagram", "linkedin"].includes(
+        data?.data?.template_type
+      )
+    ) {
+      dispatch(
+        deserialize({
+          data: JSON.stringify(data?.data?.template_type && socialTemplate),
+        })
+      );
     }
     return () => {};
   }, [data]);
 
-  // if (dimensions.height === null || dimensions.width === null) return null;
-  // console.log("template1", template1);
   return (
     <TemplateContainer>
       <div ref={canvRef} className="canvas-container" id="canvas-wrap">
