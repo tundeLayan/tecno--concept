@@ -263,7 +263,7 @@ const canvasSlice = createSlice({
     },
     setBackgroundImage: (state) => {
       const { fabric: canvas } = getCanvas(state.canvasId);
-      canvas.backgroundColor = "pink";
+      canvas.backgroundColor = "white";
       canvas.requestRenderAll();
       // fabric.Image.fromURL(
       //   "http://fabricjs.com/assets/honey_im_subtle.png",

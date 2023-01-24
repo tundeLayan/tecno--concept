@@ -153,4 +153,5 @@ export const socialTemplate = {
       filters: [],
     },
   ],
+  background: "white",
 };
