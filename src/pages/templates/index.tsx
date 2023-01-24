@@ -233,6 +233,7 @@ export default function Home() {
                     router(`/template/${dt.id}?width=1080&height=1080`)
                   }
                   label={dt.title}
+                  subTitle={`${dt.template_type.toUpperCase()} POST`}
                 />
               ))
             ) : (

@@ -4,7 +4,7 @@ const MenuBarStyle = styled.div`
   background-color: ${(props) => props.theme.colors.bg.dark1};
   border-radius: ${(props) => props.theme.sizes[0]};
   padding: ${(props) => `${props.theme.space[2]}`};
-  width: 56%;
+  width: 60%;
   margin: auto;
   display: flex;
   justify-content: space-between;

@@ -32,13 +32,15 @@ import {
   LinkedinShare,
   ShareIcon,
   SaveIcon,
+  Download,
 } from "../svgs";
 import logo from "../../assets/images/logo.png";
 import { getLocalStorage, clearLocalStorage } from "../../services/helper";
 import config from "../../config";
 import RenderIf from "../../utils";
 import queries from "../../services/queries/templates";
-import { CanvasCTX } from "../../Canvas";
+import { CanvasCTX, setBackgroundImage } from "../../Canvas";
+import { useDispatch } from "react-redux";
 interface IProps {
   variant: 1 | 2;
 }
@@ -219,6 +221,7 @@ const SocialShare = () => {
 const NavbarComp = ({ variant }: IProps) => {
   const router: NavigateFunction = useNavigate();
   // const params = useParams();
+  const dispatch = useDispatch();
   const token = getLocalStorage(config.tokenKey);
   const params = useParams();
   const { canvas } = useContext(CanvasCTX);
@@ -239,6 +242,22 @@ const NavbarComp = ({ variant }: IProps) => {
     };
     mutate(dataObj, params?.id || "");
   }
+
+  const download = () => {
+    // set background image to white
+    dispatch(setBackgroundImage());
+    const url = canvas?.toDataURL({
+      format: "jpeg",
+      quality: 1,
+    });
+
+    if (url) {
+      const link = document.createElement("a");
+      link.download = `tecno-${new Date().toISOString()}.jpg`;
+      link.href = url;
+      link.click();
+    }
+  };
 
   return (
     <div>
@@ -323,17 +342,12 @@ const NavbarComp = ({ variant }: IProps) => {
 
             <span className="share-container">
               <span className="desktop-share">
-                <InverseButton
-                  onClick={() => setOpenShareModal((prev) => !prev)}
-                >
-                  Share
+                <InverseButton onClick={() => download()}>
+                  Download
                 </InverseButton>
               </span>
-              <RenderIf condition={openShareModal}>
-                <SocialShare />
-              </RenderIf>
               <span className="mobile-share">
-                <ShareIcon onClick={() => setOpenShareModal((prev) => !prev)} />
+                <Download onClick={() => download()} />
               </span>
             </span>
           </div>

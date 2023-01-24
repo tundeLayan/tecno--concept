@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { CirclePicker } from "react-color";
+import { CirclePicker, SwatchesPicker } from "react-color";
 import Select from "react-dropdown-select";
 
 import { MenuBarStyle, MenuBarStyleMobile } from "./styles/MenuBar";
@@ -73,6 +73,7 @@ const fontSizes: Array<{ label: number; value: number }> = [
 const colorList: Array<string> = [
   "#f44336",
   "#e91e63",
+  "#FFFFFF",
   "#9c27b0",
   "#673ab7",
   "#3f51b5",
@@ -240,14 +241,15 @@ const MenuBar = () => {
         <DarkButton textSize="md" onClick={() => handleColor()} variant={2}>
           <RenderIf condition={showColorPallete}>
             <div className="color-action-bar">
-              <CirclePicker
+              <SwatchesPicker
                 color={selectedColor}
                 onChangeComplete={(color) => {
                   setSelectedColor(color.hex);
                   dispatch(changeTextColor(color.hex));
                 }}
-                width="470px"
-                colors={colorList}
+                width={220}
+                height={200}
+                // colors={colorList}
               />
             </div>
           </RenderIf>
@@ -298,6 +300,13 @@ const MenuBar = () => {
         </DarkButton>
         <DarkButton
           textSize="md"
+          onClick={() => dispatch(deleteSelectedLayer())}
+          variant={2}
+        >
+          <TrashIcon />
+        </DarkButton>
+        <DarkButton
+          textSize="md"
           onClick={() => handleAddZoomOut()}
           variant={2}
         >
@@ -306,15 +315,26 @@ const MenuBar = () => {
         <DarkButton textSize="md" onClick={() => handleAddZoomIn()} variant={2}>
           <ZoomInIcon />
         </DarkButton>
-        <DarkButton textSize="md" onClick={() => download()} variant={2}>
-          Download
-        </DarkButton>
         <DarkButton
           textSize="md"
           onClick={() => dispatch(setBackgroundImage())}
           variant={2}
         >
           Set background
+        </DarkButton>
+        <DarkButton
+          textSize="md"
+          onClick={() => dispatch(moveObjectFoward())}
+          variant={2}
+        >
+          Front
+        </DarkButton>
+        <DarkButton
+          textSize="md"
+          onClick={() => dispatch(moveObjectBackward())}
+          variant={2}
+        >
+          Back
         </DarkButton>
       </MenuBarStyle>
       {/* mobile */}
@@ -386,14 +406,15 @@ const MenuBar = () => {
         <DarkButton textSize="md" onClick={() => handleColor()} variant={2}>
           <RenderIf condition={showColorPallete}>
             <div className="color-action-bar">
-              <CirclePicker
+              <SwatchesPicker
                 color={selectedColor}
                 onChangeComplete={(color) => {
                   setSelectedColor(color.hex);
                   dispatch(changeTextColor(color.hex));
                 }}
-                width="400px"
-                colors={colorList}
+                width={220}
+                height={200}
+                // colors={colorList}
               />
             </div>
           </RenderIf>
@@ -458,9 +479,6 @@ const MenuBar = () => {
         </DarkButton>
         <DarkButton textSize="md" onClick={() => handleAddZoomIn()} variant={2}>
           <ZoomInIcon />
-        </DarkButton>
-        <DarkButton textSize="md" onClick={() => download()} variant={2}>
-          <Download />
         </DarkButton>
         <DarkButton
           textSize="md"

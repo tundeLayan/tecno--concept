@@ -153,7 +153,7 @@ const DarkButton = styled(Button)<IDarkButton>`
       /* } */
     }
   }
-  .color-action-bar,
+
   .fonts-action-bar {
     position: absolute;
     background: ${(props) => props.theme.colors.bg.dark1};
@@ -176,8 +176,24 @@ const DarkButton = styled(Button)<IDarkButton>`
     }
   }
   .color-action-bar {
+    position: absolute;
+    /* background: ${(props) => props.theme.colors.bg.dark1}; */
+    top: -470%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem;
+    border-radius: ${(props) => props.theme.sizes[4]};
+    display: flex;
+    width: fit-content;
+    gap: ${(props) => props.theme.space[3]};
+    :hover {
+      opacity: 1;
+    }
     @media screen and (max-width: 900px) {
       left: -120%;
+      top: -530%;
+      gap: ${(props) => props.theme.space[1]};
+      padding: 0.5rem;
     }
   }
   .fonts-action-bar {
