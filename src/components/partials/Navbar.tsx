@@ -230,14 +230,14 @@ const NavbarComp = ({ variant }: IProps) => {
   const debouncedSearch = useCallback(debounce(mutate, 1500), []);
 
   function handleSubmit() {
-    console.log("canvas?.toJSON().objects", canvas?.toJSON().objects);
+    // console.log("canvas?.toJSON().objects", canvas?.toJSON().objects);
     let dataObj = {
       title: data?.data?.title || "",
       media_hash: JSON.stringify({ objects: canvas?.toJSON().objects }),
       _method: "PUT",
       template_type: data?.data?.template_type,
     };
-    // mutate(dataObj, params?.id || "");
+    mutate(dataObj, params?.id || "");
   }
 
   return (

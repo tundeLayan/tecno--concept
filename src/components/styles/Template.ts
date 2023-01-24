@@ -21,6 +21,7 @@ const TemplateContainer = styled.div`
       background-color: white;
     }
     @media screen and (max-width: 900px) {
+      height: 50vh;
       align-items: center;
       width: 90%;
       .canvas {
@@ -28,6 +29,9 @@ const TemplateContainer = styled.div`
         margin: 0;
       }
     }
+  }
+  @media screen and (max-width: 900px) {
+    padding-block: 1rem;
   }
 `;
 

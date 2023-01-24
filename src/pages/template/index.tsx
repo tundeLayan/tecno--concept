@@ -199,6 +199,14 @@ const Template = () => {
 
   useEffect(() => {
     // if empty and there is template type in the url, render template
+
+    // I use this to test how the templates look
+    // dispatch(
+    //   deserialize({
+    //     data: JSON.stringify(socialTemplate),
+    //   })
+    // );
+
     if (
       data &&
       isEmptyObject(parseToJson(data?.data?.media_hash)) &&
