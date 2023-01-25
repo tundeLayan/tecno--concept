@@ -29,6 +29,7 @@ const Card = styled.div<any>`
   }
   @media screen and (max-width: 900px) {
     font-size: ${(props) => props.theme.fontSizes.caption};
+    padding: ${(props) => `${props.theme.space[0]} ${props.theme.space[2]}`};
   }
 `;
 

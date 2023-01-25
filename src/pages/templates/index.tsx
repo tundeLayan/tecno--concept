@@ -194,11 +194,27 @@ export default function Home() {
         <div className="top">
           <div className="top__greetings">
             <h1>Welcome, {userDetails.first_name}</h1>
-            <p>Let&apos;s start creating</p>
+            {/* <p>Let&apos;s start creating</p> */}
+            <p>Select your favorite template and start recreating</p>
           </div>
           <div className="top__templates">
             <RenderIf condition={!isLoading}>
               <Card
+                label="Template 1"
+                iconText={<img src={Template1} width={"100%"} alt="" />}
+                onClick={() => handleCreate("template1")}
+              />
+              <Card
+                label="Template 2"
+                onClick={() => handleCreate("template2")}
+                iconText={<img src={Template2} width={"100%"} alt="" />}
+              />
+              <Card
+                label="Template 3"
+                onClick={() => handleCreate("template3")}
+                iconText={<img src={Template3} width={"100%"} alt="" />}
+              />
+              {/* <Card
                 iconText="Templates"
                 label="Browse all"
                 onClick={handleOpenModal}
@@ -211,7 +227,7 @@ export default function Home() {
                   label={Icon.label}
                   onClick={() => handleCreate(Icon.name)}
                 />
-              ))}
+              ))} */}
             </RenderIf>
             <RenderIf condition={isLoading}>
               {generateArray(5).map((_, idx) => (
@@ -233,7 +249,7 @@ export default function Home() {
                     router(`/template/${dt.id}?width=1080&height=1080`)
                   }
                   label={dt.title}
-                  subTitle={`${dt.template_type || ""} POST`}
+                  // subTitle={`${dt.template_type || ""} POST`}
                 />
               ))
             ) : (

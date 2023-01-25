@@ -75,8 +75,8 @@ const RightContainer = styled.div`
     left: "50%";
     transform: "translate(-50%, -50%)";
     /* border: 1px solid red; */
-    animation: ${up_down} 1s infinite alternate;
-    -webkit-animation: ${up_down} 1s infinite alternate;
+    /* animation: ${up_down} 1s infinite alternate;
+    -webkit-animation: ${up_down} 1s infinite alternate; */
     /* height: 100%; */
     /* width: 100%; */
 

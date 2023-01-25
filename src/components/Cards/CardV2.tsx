@@ -29,7 +29,7 @@ const Card = ({
         </div>
       </StyledCard>
       <p className="card__label">{label}</p>
-      <p className="card__sub-title">{subTitle}</p>
+      {/* <p className="card__sub-title">{subTitle}</p> */}
     </CardContainer>
   );
 };

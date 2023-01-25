@@ -41,7 +41,7 @@ const Card = ({
       .top__templates__label {
           font-weight: ${theme.fontWeights.medium};
           font-size: ${theme.fontSizes.body2};
-          line-height: 2.8125rem;
+         
           text-align: left;
           color: ${theme.colors.text.secondary};
           @media screen and (max-width: 900px) {

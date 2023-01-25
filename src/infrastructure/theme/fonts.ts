@@ -39,7 +39,7 @@ export const fontSizes: IFontSizes = {
   button: "14px",
   body: "16px",
   body2: "18px",
-  title: "20px",
+  title: "24px",
   h5: "28px",
   h4: "30px",
   h3: "45px",

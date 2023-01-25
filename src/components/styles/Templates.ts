@@ -29,17 +29,18 @@ const Container = styled.main<any>`
       & > p {
         color: ${(props) => props.theme.colors.text.secondary};
         font-weight: ${(props) => props.theme.fontWeights.small};
-        font-size: ${(props) => props.theme.fontSizes.h5};
+        font-size: ${(props) => props.theme.fontSizes.title};
         /* line-height: 2.8125rem; */
         margin-block: 0px !important;
       }
     }
     &__templates {
       /* border: 1px solid black; */
+      padding-inline: 4rem;
       display: flex;
       justify-content: space-between;
       /* grid-template-columns: repeat(5, minmax(14.5%, 14.5%)); */
-      width: 72%;
+      width: 90%;
       gap: 3rem;
       &__label {
         font-weight: ${(props) => props.theme.fontWeights.medium};
@@ -48,6 +49,9 @@ const Container = styled.main<any>`
         text-align: center;
         color: ${(props) => props.theme.colors.text.secondary};
       }
+      @media screen and (max-width: 900px) {
+        padding-inline: 1.2rem;
+      }
 
       /* border: 1px solid green; */
     }
@@ -55,6 +59,7 @@ const Container = styled.main<any>`
       flex-direction: column;
       gap: ${(props) => props.theme.space[3]};
       margin-bottom: 0.4rem;
+
       &__greetings {
         & > h1 {
           font-weight: 600;
@@ -80,7 +85,7 @@ const Container = styled.main<any>`
           margin-top: ${(props) => props.theme.space[1]};
           font-weight: ${(props) => props.theme.fontWeights.medium};
           font-size: ${(props) => props.theme.fontSizes.caption};
-          line-height: 2.8125rem;
+          /* line-height: 2.8125rem; */
           color: ${(props) => props.theme.colors.text.secondary};
         }
       }

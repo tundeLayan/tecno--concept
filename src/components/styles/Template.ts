@@ -10,8 +10,8 @@ const TemplateContainer = styled.div`
   .canvas-container {
     position: relative;
     margin: auto;
-    min-height: 75vh;
-    width: 35%;
+    min-height: 70vh;
+    width: 50%;
     background-color: white;
     .canvas {
       width: 100%;
