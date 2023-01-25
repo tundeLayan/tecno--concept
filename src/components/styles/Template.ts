@@ -10,9 +10,10 @@ const TemplateContainer = styled.div`
   .canvas-container {
     position: relative;
     margin: auto;
-    min-height: 70vh;
-    width: 50%;
+    height: 720px;
+    width: 720px;
     background-color: white;
+    /* border: 1px solid; */
     .canvas {
       width: 100%;
       min-height: calc(100vh - 2.8057rem - 11.5rem);
@@ -21,6 +22,8 @@ const TemplateContainer = styled.div`
       background-color: white;
     }
     @media screen and (max-width: 900px) {
+      height: 440px;
+      width: 440px;
       height: 50vh;
       align-items: center;
       width: 90%;
