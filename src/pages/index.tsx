@@ -130,8 +130,8 @@ const Home = () => {
         </LeftContainer>
         <RightContainer>
           <div>
-            {/* <img alt="landing" src={LandingImage} height={600} /> */}
-            <video
+            <img alt="landing" src={LandingImage} height={600} />
+            {/* <video
               controls
               muted
               poster="https://ruttl.com/assets/img/index-hero.jpg"
@@ -142,7 +142,7 @@ const Home = () => {
                 src="https://ruttl.com/assets/video/index-hero.webm"
                 type="video/mp4"
               />
-            </video>
+            </video> */}
           </div>
         </RightContainer>
       </Container>
