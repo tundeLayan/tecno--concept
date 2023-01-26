@@ -18,6 +18,7 @@ import {
   LandingImage /* , RightAngle, LeftAngle, LandingImage */,
   GoogleLogo,
   AuthFacebookLogo,
+  LandingImage2,
 } from "../components/svgs";
 import Modal from "../components/Modal";
 import { useModals } from "../contexts/Modal";
@@ -118,19 +119,20 @@ const Home = () => {
       <Container>
         <LeftContainer>
           <Header>
-            Create your Phantom Magazine cover in <span>20 secs</span>
-            {/* Create your Idea in <span>seconds</span> */}
+            Create your Phantom X2 Magazine cover in <span>20 secs</span>
           </Header>
           <Subtitle>
-            You can now create, edit and share your ideas in just few seconds.
-            Be in control of your ideas
+            And stand a chance to be our PHANTOM X2 personality of the week who
+            will win the brand new PHANTOM X2 smartphone. Follow the
+            instructions in the HELP Section to learn how to create, edit and
+            share your PHANTOM Magazine.
           </Subtitle>
           <br />
           <FilledButton onClick={handleOpenModal}>Start Here</FilledButton>
         </LeftContainer>
         <RightContainer>
           <div>
-            <img alt="landing" src={LandingImage} height={600} />
+            <img alt="landing" src={LandingImage2} height={400} />
             {/* <video
               controls
               muted

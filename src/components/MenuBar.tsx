@@ -40,6 +40,7 @@ import {
   moveObjectFoward,
   moveObjectBackward,
   deleteSelectedLayer,
+  makeUnselectable,
 } from "../Canvas";
 import ImageUploadButton from "./AddImage";
 
@@ -107,9 +108,9 @@ const MenuBar = () => {
   const [showFonts, setShowFonts] = useState(false);
 
   //
-  const [isBold, setIsBold] = useState(false);
-  const [isItalized, setIsItalized] = useState(false);
-  const [isUnderlined, setIsUnderlined] = useState(false);
+  const [isBold, setIsBold] = useState<boolean | null>(null);
+  const [isItalized, setIsItalized] = useState<boolean | null>(null);
+  const [isUnderlined, setIsUnderlined] = useState<boolean | null>(null);
 
   const [showTextAlign, setShowTextAlign] = useState(false);
   const [textAlign, setTextAlign] = useState<"center" | "left" | "right">(
@@ -124,22 +125,24 @@ const MenuBar = () => {
     dispatch(zoom({ zoomValue }));
   }, [zoomValue]);
 
+  useEffect(() => {
+    if (isBold !== null) {
+      dispatch(setToBold(isBold));
+    }
+  }, [isBold]);
+  useEffect(() => {
+    if (isItalized !== null) {
+      dispatch(setToItalic(isItalized));
+    }
+  }, [isItalized]);
+  useEffect(() => {
+    if (isUnderlined !== null) {
+      dispatch(underlineText(isUnderlined));
+    }
+  }, [isUnderlined]);
+
   if (!elem) return null;
   const { fabric: canvas } = elem;
-
-  const download = () => {
-    const url = canvas?.toDataURL({
-      format: "jpeg",
-      quality: 1,
-    });
-
-    if (url) {
-      const link = document.createElement("a");
-      link.download = `tecno-${new Date().toISOString()}.jpg`;
-      link.href = url;
-      link.click();
-    }
-  };
 
   const handleAddText = () => {
     dispatch(
@@ -209,7 +212,7 @@ const MenuBar = () => {
               <span
                 onClick={() => {
                   setIsBold((prev) => !prev);
-                  dispatch(setToBold());
+                  // dispatch(setToBold());
                 }}
               >
                 <Bold width={15} height={15} />
@@ -217,7 +220,7 @@ const MenuBar = () => {
               <span
                 onClick={() => {
                   setIsItalized((prev) => !prev);
-                  dispatch(setToItalic());
+                  // dispatch(setToItalic());
                 }}
               >
                 <Italize width={15} height={15} />
@@ -225,7 +228,7 @@ const MenuBar = () => {
               <span
                 onClick={() => {
                   setIsUnderlined((prev) => !prev);
-                  dispatch(underlineText());
+                  // dispatch(underlineText());
                 }}
               >
                 <Underline width={15} height={15} />
@@ -374,7 +377,7 @@ const MenuBar = () => {
               <span
                 onClick={() => {
                   setIsBold((prev) => !prev);
-                  dispatch(setToBold());
+                  // dispatch(setToBold());
                 }}
               >
                 <Bold width={15} height={15} />
@@ -382,7 +385,7 @@ const MenuBar = () => {
               <span
                 onClick={() => {
                   setIsItalized((prev) => !prev);
-                  dispatch(setToItalic());
+                  // dispatch(setToItalic());
                 }}
               >
                 <Italize width={15} height={15} />
@@ -390,7 +393,7 @@ const MenuBar = () => {
               <span
                 onClick={() => {
                   setIsUnderlined((prev) => !prev);
-                  dispatch(underlineText());
+                  // dispatch(underlineText());
                 }}
               >
                 <Underline width={15} height={15} />
@@ -500,6 +503,13 @@ const MenuBar = () => {
           variant={2}
         >
           Back
+        </DarkButton>
+        <DarkButton
+          textSize="md"
+          onClick={() => dispatch(makeUnselectable())}
+          variant={2}
+        >
+          Unsel
         </DarkButton>
       </MenuBarStyleMobile>
     </>

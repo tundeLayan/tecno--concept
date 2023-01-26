@@ -238,11 +238,25 @@ const canvasSlice = createSlice({
           alert("font loading failed " + payload.fontFamily);
         });
     },
-    setToBold: () => {},
-    setToItalic: () => {},
-    underlineText: (state) => {
+    setToBold: (state, { payload }) => {
+      const { fabric: canvas } = getCanvas(state.canvasId);
+      canvas
+        .getActiveObject()
+        ?.setOptions({ fontWeight: payload ? "bold" : "normal" });
+      canvas.requestRenderAll();
+    },
+    setToItalic: (state, { payload }) => {
+      const { fabric: canvas } = getCanvas(state.canvasId);
+      canvas
+        .getActiveObject()
+        ?.setOptions({ fontStyle: payload ? "italic" : "normal" });
+      canvas.requestRenderAll();
+    },
+    underlineText: (state, { payload }) => {
       const { fabric: canvas } = getCanvas(state.canvasId);
       if (!canvas.getActiveObject()) return;
+      canvas.getActiveObject()?.setOptions({ underline: payload });
+      canvas.requestRenderAll();
     },
     serialize: (state) => {
       const { fabric: canvas } = getCanvas(state.canvasId);
@@ -292,6 +306,15 @@ const canvasSlice = createSlice({
       canvas.getActiveObject()?.sendBackwards(true);
       canvas.requestRenderAll();
     },
+    makeUnselectable: (state) => {
+      const { fabric: canvas } = getCanvas(state.canvasId);
+      console.log("selectable");
+      canvas.getActiveObject()?.set("selectable", false);
+      canvas
+        .getActiveObject()
+        ?.setOptions({ selection: false, evented: false });
+      canvas.requestRenderAll();
+    },
   },
 });
 
@@ -317,5 +340,6 @@ export const {
   moveObjectFoward,
   moveObjectBackward,
   textAlignFn,
+  makeUnselectable,
 } = canvasSlice.actions;
 export const canvasReducer = canvasSlice.reducer;

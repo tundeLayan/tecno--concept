@@ -37,6 +37,7 @@ import RecentDesign2 from "../../assets/images/recent_design2.png";
 import RecentDesign3 from "../../assets/images/recent_design3.png";
 import RecentDesign4 from "../../assets/images/recent_design4.png";
 import LandingImage from "../../assets/images/landing_image.png";
+import LandingImage2 from "../../assets/images/landing_image2.png";
 import TemplateCard from "../../assets/images/template_card.png";
 // import Template1 from "../../assets/images/template1.png";
 import FacebookLogo from "../../assets/images/facebook_logo.png";
@@ -49,6 +50,7 @@ import Template2 from "../../assets/images/template2.jpeg";
 import Template3 from "../../assets/images/template3.jpeg";
 
 export {
+  LandingImage2,
   TrashIcon,
   Download,
   AuthFacebookLogo,

@@ -226,7 +226,6 @@ const NavbarComp = ({ variant }: IProps) => {
   const params = useParams();
   const { canvas } = useContext(CanvasCTX);
 
-  const [openShareModal, setOpenShareModal] = useState(false);
   const { data } = queries.readOne(params.id);
   const { mutate, isLoading } = queries.update();
 
@@ -234,6 +233,7 @@ const NavbarComp = ({ variant }: IProps) => {
 
   function handleSubmit() {
     // console.log("canvas?.toJSON().objects", canvas?.toJSON().objects);
+    // console.log("canvas?.toJSON().objects", canvas?.toJSON());
     let dataObj = {
       title: data?.data?.title || "",
       media_hash: JSON.stringify({ objects: canvas?.toJSON().objects }),
@@ -244,7 +244,7 @@ const NavbarComp = ({ variant }: IProps) => {
   }
 
   const download = () => {
-    // set background image to white
+    // set background image to white before download
     dispatch(setBackgroundImage());
     const url = canvas?.toDataURL({
       format: "jpeg",

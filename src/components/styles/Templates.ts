@@ -1,16 +1,19 @@
+import { space } from "./../../infrastructure/theme/spacing";
+import { theme } from "./../../infrastructure/theme/index";
 import styled from "styled-components";
 
 const Container = styled.main<any>`
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 4.8813rem);
-  padding: ${(props) => `${props.theme.space[3]} ${props.theme.space[5]}`};
+  min-height: calc(100vh - 4.8813rem);
+  padding-block: ${(props) => `${props.theme.space[3]}`};
   position: relative;
   .top {
     /* border: 1px solid black; */
     display: flex;
     justify-content: space-between;
     margin-bottom: 5rem;
+    padding-inline: ${(props) => `${props.theme.space[5]}`};
     &__greetings {
       /* border: 1px solid; */
       display: flex;
@@ -50,7 +53,7 @@ const Container = styled.main<any>`
         color: ${(props) => props.theme.colors.text.secondary};
       }
       @media screen and (max-width: 900px) {
-        padding-inline: 1.2rem;
+        padding-inline: 0rem;
       }
 
       /* border: 1px solid green; */
@@ -59,7 +62,7 @@ const Container = styled.main<any>`
       flex-direction: column;
       gap: ${(props) => props.theme.space[3]};
       margin-bottom: 0.4rem;
-
+      padding-inline: ${(props) => `${props.theme.space[2]}`};
       &__greetings {
         & > h1 {
           font-weight: 600;
@@ -91,7 +94,91 @@ const Container = styled.main<any>`
       }
     }
   }
+  .middle {
+    min-height: 300px;
+    background: #f5f9ff;
+    padding: ${(props) => `${props.theme.space[4]} ${props.theme.space[5]}`};
+    display: flex;
+    flex-direction: column;
+    & > .middle-top {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: ${(props) => props.theme.space[5]};
+      .title {
+        font-weight: 600;
+        font-size: 30px;
+        color: #222222;
+      }
+      .subtitle {
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 45px;
+        color: #222222;
+      }
+    }
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.4rem;
+      margin-bottom: ${(props) => props.theme.space[4]};
+      .step {
+        flex: 1;
+        &-title {
+          font-weight: 700;
+          font-size: 22px;
+          color: #222222;
+          margin-bottom: 0.8rem;
+        }
+        &-subtitle {
+          font-weight: 400;
+          font-size: 21px;
+          color: #222222;
+          .hashtag {
+            color: #0163f8;
+            font-style: italic;
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 900px) {
+      padding: ${(props) => `${props.theme.space[2]} ${props.theme.space[3]}`};
+      & > .middle-top {
+        margin-bottom: ${(props) => props.theme.space[3]};
+        .title {
+          font-weight: 700;
+          font-size: 18px;
+        }
+        .subtitle {
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 30px;
+        }
+      }
+      .steps {
+        flex-direction: column;
+        .step {
+          flex: 1;
+          &-title {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 7px;
+          }
+          &-subtitle {
+            font-weight: 400;
+            font-size: 14px;
+          }
+        }
+      }
+      .watch-demo-button {
+        width: 90%;
+        text-align: center;
+        justify-content: center;
+        /* line-height: 11.2px; */
+      }
+    }
+  }
   .bottom {
+    padding: ${(props) => `${props.theme.space[4]} ${props.theme.space[5]}`};
     & > h1 {
       margin-bottom: 2rem;
       font-weight: ${(props) => props.theme.fontWeights.medium};

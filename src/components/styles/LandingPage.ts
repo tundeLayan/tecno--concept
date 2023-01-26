@@ -14,6 +14,7 @@ const Container = styled.main`
   @media screen and (max-width: 900px) {
     flex-direction: column;
     gap: ${(props) => props.theme.space[6]};
+    padding: ${(props) => props.theme.space[4]};
   }
 `;
 
@@ -38,6 +39,7 @@ const Header = styled.h1`
   font-weight: ${(props) => props.theme.fontWeights.bold};
   /* line-height: 6.125rem; */
   color: ${(props) => props.theme.colors.text.secondary};
+  margin-bottom: 1rem;
   span {
     color: ${(props) => props.theme.colors.text.primary} !important;
   }
@@ -50,10 +52,10 @@ const Header = styled.h1`
 
 const Subtitle = styled.p`
   font-weight: ${(props) => props.theme.fontWeights.small};
-  font-size: ${(props) => props.theme.fontSizes.h5};
-  line-height: 2.8125rem;
+  font-size: ${(props) => props.theme.fontSizes.body2};
+  line-height: 1.8125rem;
   color: ${(props) => props.theme.colors.text.secondary};
-  margin-bottom: ${(props) => props.theme.space[3]};
+  margin-bottom: ${(props) => props.theme.space[2]};
   @media screen and (max-width: 900px) {
     font-size: ${(props) => props.theme.fontSizes.body};
     line-height: 1.5rem;
@@ -75,8 +77,8 @@ const RightContainer = styled.div`
     left: "50%";
     transform: "translate(-50%, -50%)";
     /* border: 1px solid red; */
-    /* animation: ${up_down} 1s infinite alternate;
-    -webkit-animation: ${up_down} 1s infinite alternate; */
+    animation: ${up_down} 1s infinite alternate;
+    -webkit-animation: ${up_down} 1s infinite alternate;
     /* height: 100%; */
     /* width: 100%; */
 

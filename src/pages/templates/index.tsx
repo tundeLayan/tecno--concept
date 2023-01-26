@@ -236,10 +236,45 @@ export default function Home() {
             </RenderIf>
           </div>
         </div>
+        <div className="middle">
+          <div className="middle-top">
+            <h5 className="title">Help Section</h5>
+            <p className="subtitle">
+              Steps to create your desired magazine cover.
+            </p>
+          </div>
+          <div className="steps">
+            <div className="step">
+              <h5 className="step-title">Step 1:</h5>
+              <p className="step-subtitle">Select any of the templates</p>
+            </div>
+            <div className="step">
+              <h5 className="step-title">Step 2:</h5>
+              <p className="step-subtitle">
+                Design your desired Phantom X2 magazine cover
+              </p>
+            </div>
+            <div className="step">
+              <h5 className="step-title">Step 3:</h5>
+              <p className="step-subtitle">
+                Download and Share with{" "}
+                <span className="hashtag">#TheXtraOrdinaryMe</span>
+              </p>
+            </div>
+          </div>
+
+          <FilledButton
+            className="watch-demo-button"
+            style={{ margin: "auto", fontSize: "16px" }}
+          >
+            Click here to watch demo
+          </FilledButton>
+        </div>
         <div className="bottom">
           <h1>Recent Designs</h1>
 
           <div className="bottom__recent-designs">
+            {console.log("data?.data?.data", data?.data?.data)}
             {data?.data?.data.length > 0 ? (
               data?.data?.data?.map((dt: any, idx: number) => (
                 <CardV2

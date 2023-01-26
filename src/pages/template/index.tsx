@@ -203,7 +203,7 @@ const Template = () => {
     // I use this to test how the templates look
     // dispatch(
     //   deserialize({
-    //     data: JSON.stringify(socialTemplate),
+    //     data: JSON.stringify(template3),
     //   })
     // );
 
