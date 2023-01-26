@@ -263,18 +263,24 @@ export default function Home() {
             </div>
           </div>
 
-          <FilledButton
-            className="watch-demo-button"
-            style={{ margin: "auto", fontSize: "16px" }}
+          <a
+            href={"https://www.loom.com/share/609fb367be1e43ec9cfd7dc39b5a9d66"}
+            target="_blank"
+            rel="noreferrer"
+            style={{ textDecoration: "none" }}
           >
-            Click here to watch demo
-          </FilledButton>
+            <FilledButton
+              className="watch-demo-button"
+              style={{ margin: "auto", fontSize: "16px" }}
+            >
+              Click here to watch demo
+            </FilledButton>
+          </a>
         </div>
         <div className="bottom">
           <h1>Recent Designs</h1>
 
           <div className="bottom__recent-designs">
-            {console.log("data?.data?.data", data?.data?.data)}
             {data?.data?.data.length > 0 ? (
               data?.data?.data?.map((dt: any, idx: number) => (
                 <CardV2
