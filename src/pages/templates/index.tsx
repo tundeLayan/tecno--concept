@@ -12,15 +12,15 @@ import {
 import { Container } from "../../components/styles/Templates";
 import { Card, CardV2 } from "../../components/Cards";
 import {
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
+  // Facebook,
+  // Twitter,
+  // Instagram,
+  // Linkedin,
   RecentDesign1,
-  RecentDesign2,
-  RecentDesign3,
-  RecentDesign4,
-  TemplateCard,
+  // RecentDesign2,
+  // RecentDesign3,
+  // RecentDesign4,
+  // TemplateCard,
   EmptyState,
   Template1,
   Template2,
